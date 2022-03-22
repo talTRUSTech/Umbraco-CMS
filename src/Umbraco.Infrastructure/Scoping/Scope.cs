@@ -18,10 +18,10 @@ using Umbraco.Extensions;
 namespace Umbraco.Cms.Core.Scoping
 {
     /// <summary>
-    ///     Implements <see cref="IScope" />.
+    ///     Implements <see cref="ICoreScope" />.
     /// </summary>
     /// <remarks>Not thread-safe obviously.</remarks>
-    internal class Scope : IDatabaseScope
+    internal class Scope : IScope
     {
         private readonly bool _autoComplete;
         private readonly CoreDebugSettings _coreDebugSettings;

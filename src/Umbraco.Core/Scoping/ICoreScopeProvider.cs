@@ -11,7 +11,7 @@ namespace Umbraco.Cms.Core.Scoping
     /// <summary>
     /// Provides scopes.
     /// </summary>
-    public interface IScopeProvider
+    public interface ICoreScopeProvider
     {
         /// <summary>
         /// Creates an ambient scope.
@@ -31,7 +31,7 @@ namespace Umbraco.Cms.Core.Scoping
         /// <para>Auto-completed scopes should be used for read-only operations ONLY. Do not use them if you do not
         /// understand the associated issues, such as the scope being completed even though an exception is thrown.</para>
         /// </remarks>
-        IScope CreateScope(
+        ICoreScope CreateCoreScope(
             IsolationLevel isolationLevel = IsolationLevel.Unspecified,
             RepositoryCacheMode repositoryCacheMode = RepositoryCacheMode.Unspecified,
             IScopedNotificationPublisher scopedNotificationPublisher = null,
@@ -52,7 +52,7 @@ namespace Umbraco.Cms.Core.Scoping
         /// <para>It is meant to be attached by <see cref="AttachScope"/>.</para>
         /// </remarks>
         // TODO: This is not actually used apart from unit tests - I'm assuming it's maybe used by Deploy?
-        IScope CreateDetachedScope(
+        ICoreScope CreateCoreDetachedScope(
             IsolationLevel isolationLevel = IsolationLevel.Unspecified,
             RepositoryCacheMode repositoryCacheMode = RepositoryCacheMode.Unspecified,
             IScopedNotificationPublisher scopedNotificationPublisher = null,
@@ -64,9 +64,9 @@ namespace Umbraco.Cms.Core.Scoping
         /// <param name="scope">The scope to attach.</param>
         /// <param name="callContext">A value indicating whether to force usage of call context.</param>
         /// <remarks>
-        /// <para>Only a scope created by <see cref="CreateDetachedScope"/> can be attached.</para>
+        /// <para>Only a scope created by <see cref="CreateCoreDetachedScope"/> can be attached.</para>
         /// </remarks>
-        void AttachScope(IScope scope, bool callContext = false);
+        void AttachScope(ICoreScope scope, bool callContext = false);
 
         /// <summary>
         /// Detaches a scope.
@@ -75,7 +75,7 @@ namespace Umbraco.Cms.Core.Scoping
         /// <remarks>
         /// <para>Only a scope previously attached by <see cref="AttachScope"/> can be detached.</para>
         /// </remarks>
-        IScope DetachScope();
+        ICoreScope DetachScope();
 
         /// <summary>
         /// Gets the scope context.

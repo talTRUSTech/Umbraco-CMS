@@ -7,10 +7,10 @@ namespace Umbraco.Cms.Core.Scoping
     /// <summary>
     /// Represents a scope.
     /// </summary>
-    public interface IScope : IDisposable, IInstanceIdentifiable
+    public interface ICoreScope : IDisposable, IInstanceIdentifiable
     {
         /// <summary>
-        /// Gets the scope notification publisher
+        /// Gets the scope notification publisher.
         /// </summary>
         IScopedNotificationPublisher Notifications { get; }
 
