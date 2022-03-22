@@ -101,8 +101,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
                 MediaService.Save(m2);
             }
 
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 IEnumerable<IMedia> result = MediaService.GetPagedChildren(
                     -1,

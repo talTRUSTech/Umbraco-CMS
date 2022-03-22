@@ -33,8 +33,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             const int Count = 5;
 
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repo = new CacheInstructionRepository((IScopeAccessor)sp);
                 for (var i = 0; i < Count; i++)
@@ -51,8 +51,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Count_Pending_Instructions()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repo = new CacheInstructionRepository((IScopeAccessor)sp);
                 for (var i = 0; i < 5; i++)
@@ -69,8 +69,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Check_Exists()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repo = new CacheInstructionRepository((IScopeAccessor)sp);
 
@@ -93,8 +93,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             var date = new DateTime(2021, 7, 3, 10, 30, 0);
             const int InstructionCount = 1;
 
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repo = new CacheInstructionRepository((IScopeAccessor)sp);
                 repo.Add(new CacheInstruction(0, date, Instructions, OriginIdentiy, InstructionCount));
@@ -114,8 +114,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Pending_Instructions()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repo = new CacheInstructionRepository((IScopeAccessor)sp);
                 for (var i = 0; i < 5; i++)
@@ -134,8 +134,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Delete_Old_Instructions()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repo = new CacheInstructionRepository((IScopeAccessor)sp);
                 for (var i = 0; i < 5; i++)

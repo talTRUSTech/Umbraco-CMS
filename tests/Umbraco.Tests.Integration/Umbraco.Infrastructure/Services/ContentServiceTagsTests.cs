@@ -622,7 +622,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             // Assert
             int propertyTypeId = contentType.PropertyTypes.Single(x => x.Alias == "tags").Id;
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 Assert.AreEqual(4, ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>(
                     "SELECT COUNT(*) FROM cmsTagRelationship WHERE nodeId=@nodeId AND propertyTypeId=@propTypeId",
@@ -665,7 +665,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
 
             // but the database still contains the initial two tags
             int propertyTypeId = contentType.PropertyTypes.Single(x => x.Alias == "tags").Id;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 Assert.AreEqual(4, ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>(
                     "SELECT COUNT(*) FROM cmsTagRelationship WHERE nodeId=@nodeId AND propertyTypeId=@propTypeId",
@@ -694,7 +694,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             // Assert
             Assert.AreEqual(4, content.Properties["tags"].GetValue().ToString().Split(',').Distinct().Count());
             int propertyTypeId = contentType.PropertyTypes.Single(x => x.Alias == "tags").Id;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 Assert.AreEqual(4, ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>(
                     "SELECT COUNT(*) FROM cmsTagRelationship WHERE nodeId=@nodeId AND propertyTypeId=@propTypeId",
@@ -725,7 +725,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             // Assert
             Assert.AreEqual(5, content.Properties["tags"].GetValue().ToString().Split(',').Distinct().Count());
             int propertyTypeId = contentType.PropertyTypes.Single(x => x.Alias == "tags").Id;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 Assert.AreEqual(5, ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>(
                     "SELECT COUNT(*) FROM cmsTagRelationship WHERE nodeId=@nodeId AND propertyTypeId=@propTypeId",
@@ -756,7 +756,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             // Assert
             Assert.AreEqual(2, content.Properties["tags"].GetValue().ToString().Split(',').Distinct().Count());
             int propertyTypeId = contentType.PropertyTypes.Single(x => x.Alias == "tags").Id;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 Assert.AreEqual(2, ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>(
                     "SELECT COUNT(*) FROM cmsTagRelationship WHERE nodeId=@nodeId AND propertyTypeId=@propTypeId",

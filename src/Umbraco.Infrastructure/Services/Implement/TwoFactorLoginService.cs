@@ -15,7 +15,7 @@ namespace Umbraco.Cms.Core.Services
     public class TwoFactorLoginService : ITwoFactorLoginService
     {
         private readonly ITwoFactorLoginRepository _twoFactorLoginRepository;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
         private readonly IOptions<IdentityOptions> _identityOptions;
         private readonly IOptions<BackOfficeIdentityOptions> _backOfficeIdentityOptions;
         private readonly IDictionary<string, ITwoFactorProvider> _twoFactorSetupGenerators;
@@ -25,7 +25,7 @@ namespace Umbraco.Cms.Core.Services
         /// </summary>
         public TwoFactorLoginService(
             ITwoFactorLoginRepository twoFactorLoginRepository,
-            IScopeProvider scopeProvider,
+            ICoreScopeProvider scopeProvider,
             IEnumerable<ITwoFactorProvider> twoFactorSetupGenerators,
             IOptions<IdentityOptions> identityOptions,
             IOptions<BackOfficeIdentityOptions> backOfficeIdentityOptions
@@ -41,7 +41,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public async Task DeleteUserLoginsAsync(Guid userOrMemberKey)
         {
-            using IScope scope = _scopeProvider.CreateScope(autoComplete: true);
+            using ICoreScope scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             await _twoFactorLoginRepository.DeleteUserLoginsAsync(userOrMemberKey);
         }
 
@@ -53,7 +53,7 @@ namespace Umbraco.Cms.Core.Services
 
         private async Task<IEnumerable<string>> GetEnabledProviderNamesAsync(Guid userOrMemberKey)
         {
-            using IScope scope = _scopeProvider.CreateScope(autoComplete: true);
+            using ICoreScope scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             var providersOnUser = (await _twoFactorLoginRepository.GetByUserOrMemberKeyAsync(userOrMemberKey))
                 .Select(x => x.ProviderName).ToArray();
 
@@ -87,7 +87,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public async Task<string> GetSecretForUserAndProviderAsync(Guid userOrMemberKey, string providerName)
         {
-            using IScope scope = _scopeProvider.CreateScope(autoComplete: true);
+            using ICoreScope scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             return (await _twoFactorLoginRepository.GetByUserOrMemberKeyAsync(userOrMemberKey)).FirstOrDefault(x => x.ProviderName == providerName)?.Secret;
         }
 
@@ -118,7 +118,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public async Task<bool> DisableAsync(Guid userOrMemberKey, string providerName)
         {
-            using IScope scope = _scopeProvider.CreateScope(autoComplete: true);
+            using ICoreScope scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             return await _twoFactorLoginRepository.DeleteUserLoginsAsync(userOrMemberKey, providerName);
         }
 
@@ -136,7 +136,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public Task SaveAsync(TwoFactorLogin twoFactorLogin)
         {
-            using IScope scope = _scopeProvider.CreateScope(autoComplete: true);
+            using ICoreScope scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             _twoFactorLoginRepository.Save(twoFactorLogin);
 
             return Task.CompletedTask;

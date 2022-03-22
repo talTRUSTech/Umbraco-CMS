@@ -7,15 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Umbraco.Cms.Core.Cache;
 using Umbraco.Cms.Core.DependencyInjection;
-using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.Membership;
 using Umbraco.Cms.Core.Notifications;
 using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Services.Implement;
 using Umbraco.Cms.Core.Sync;
 using Umbraco.Cms.Infrastructure.PublishedCache;
+using Umbraco.Cms.Infrastructure.Scoping;
 using Umbraco.Cms.Infrastructure.Sync;
 using Umbraco.Cms.Tests.Common.Testing;
 using Umbraco.Cms.Tests.Integration.Testing;
@@ -81,7 +80,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
             Assert.AreEqual("name", globalCached.Name);
 
             Assert.IsNull(scopeProvider.AmbientScope);
-            using (IScope scope = scopeProvider.CreateScope(repositoryCacheMode: RepositoryCacheMode.Scoped))
+            using (ICoreScope scope = scopeProvider.CreateCoreScope(repositoryCacheMode: RepositoryCacheMode.Scoped))
             {
                 Assert.IsInstanceOf<Scope>(scope);
                 Assert.IsNotNull(scopeProvider.AmbientScope);
@@ -162,7 +161,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
             Assert.AreEqual("fr-FR", globalCached.IsoCode);
 
             Assert.IsNull(scopeProvider.AmbientScope);
-            using (IScope scope = scopeProvider.CreateScope(repositoryCacheMode: RepositoryCacheMode.Scoped))
+            using (ICoreScope scope = scopeProvider.CreateCoreScope(repositoryCacheMode: RepositoryCacheMode.Scoped))
             {
                 Assert.IsInstanceOf<Scope>(scope);
                 Assert.IsNotNull(scopeProvider.AmbientScope);
@@ -259,7 +258,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
             Assert.AreEqual("item-key", globalCached.ItemKey);
 
             Assert.IsNull(scopeProvider.AmbientScope);
-            using (IScope scope = scopeProvider.CreateScope(repositoryCacheMode: RepositoryCacheMode.Scoped))
+            using (ICoreScope scope = scopeProvider.CreateCoreScope(repositoryCacheMode: RepositoryCacheMode.Scoped))
             {
                 Assert.IsInstanceOf<Scope>(scope);
                 Assert.IsNotNull(scopeProvider.AmbientScope);

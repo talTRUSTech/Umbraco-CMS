@@ -6,7 +6,7 @@ using System;
 namespace Umbraco.Cms.Core.Scoping
 {
     /// <summary>
-    /// Cleans up orphaned <see cref="IScope"/> references at the end of a request
+    /// Cleans up orphaned <see cref="ICoreScope"/> references at the end of a request
     /// </summary>
     public interface IHttpScopeReference : IDisposable
     {

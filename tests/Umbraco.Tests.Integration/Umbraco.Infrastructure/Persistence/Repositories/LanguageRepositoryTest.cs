@@ -38,8 +38,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Get_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 ScopeAccessor.AmbientScope.Database.AsUmbracoDatabase().EnableSqlTrace = true;
                 LanguageRepository repository = CreateRepository(provider);
@@ -59,8 +59,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Perform_Get_By_Iso_Code_On_LanguageRepository()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -88,8 +88,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Get_When_Id_Doesnt_Exist_Returns_Null()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -105,8 +105,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -125,8 +125,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_With_Params_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -145,8 +145,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetByQuery_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -165,8 +165,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Count_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -183,8 +183,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -205,8 +205,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_On_LanguageRepository_With_Boolean_Properties()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -227,8 +227,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_On_LanguageRepository_With_Fallback_Language()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -251,8 +251,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_On_LanguageRepository_With_New_Default()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -279,8 +279,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -306,8 +306,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Perform_Update_With_Existing_Culture()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -324,8 +324,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -344,8 +344,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_On_LanguageRepository_With_Language_Used_As_Fallback()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 // Add language to delete as a fall-back language to another one
                 LanguageRepository repository = CreateRepository(provider);
@@ -368,8 +368,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Exists_On_LanguageRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 LanguageRepository repository = CreateRepository(provider);
 
@@ -383,7 +383,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             }
         }
 
-        private LanguageRepository CreateRepository(IScopeProvider provider) => new LanguageRepository((IScopeAccessor)provider, AppCaches.Disabled, LoggerFactory.CreateLogger<LanguageRepository>(), Microsoft.Extensions.Options.Options.Create(_globalSettings));
+        private LanguageRepository CreateRepository(ICoreScopeProvider provider) => new LanguageRepository((IScopeAccessor)provider, AppCaches.Disabled, LoggerFactory.CreateLogger<LanguageRepository>(), Microsoft.Extensions.Options.Options.Create(_globalSettings));
 
         private void CreateTestData()
         {

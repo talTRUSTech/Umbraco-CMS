@@ -21,13 +21,13 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
     [TestFixture]
     public class MigrationTests
     {
-        public class TestScopeProvider : IScopeProvider, IScopeAccessor
+        public class TestScopeProvider : ICoreScopeProvider, IScopeAccessor
         {
-            private readonly IDatabaseScope _scope;
+            private readonly IScope _scope;
 
-            public TestScopeProvider(IDatabaseScope scope) => _scope = scope;
+            public TestScopeProvider(IScope scope) => _scope = scope;
 
-            public IScope CreateScope(
+            public ICoreScope CreateCoreScope(
                 IsolationLevel isolationLevel = IsolationLevel.Unspecified,
                 RepositoryCacheMode repositoryCacheMode = RepositoryCacheMode.Unspecified,
                 IScopedNotificationPublisher notificationPublisher = null,
@@ -35,15 +35,15 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
                 bool callContext = false,
                 bool autoComplete = false) => _scope;
 
-            public IScope CreateDetachedScope(
+            public ICoreScope CreateCoreDetachedScope(
                 IsolationLevel isolationLevel = IsolationLevel.Unspecified,
                 RepositoryCacheMode repositoryCacheMode = RepositoryCacheMode.Unspecified,
                 IScopedNotificationPublisher notificationPublisher = null,
                 bool? scopeFileSystems = null) => throw new NotImplementedException();
 
-            public void AttachScope(IScope scope, bool callContext = false) => throw new NotImplementedException();
+            public void AttachScope(ICoreScope scope, bool callContext = false) => throw new NotImplementedException();
 
-            public IScope DetachScope() => throw new NotImplementedException();
+            public ICoreScope DetachScope() => throw new NotImplementedException();
 
             public IScopeContext Context { get; set; }
             public IQuery<T> CreateQuery<T>() => SqlContext.Query<T>();
@@ -57,7 +57,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
             }
             public IEnumerable<ScopeInfo> ScopeInfos => throw new NotImplementedException();
 #endif
-            public IDatabaseScope AmbientScope => _scope;
+            public IScope AmbientScope => _scope;
         }
 
         private class TestPlan : MigrationPlan

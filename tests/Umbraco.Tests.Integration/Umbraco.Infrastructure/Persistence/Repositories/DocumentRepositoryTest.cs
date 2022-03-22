@@ -153,10 +153,10 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 new DictionaryAppCache(),
                 new IsolatedCaches(t => new ObjectCacheAppCache()));
 
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
             IScopeAccessor scopeAccessor = ScopeAccessor;
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out ContentTypeRepository contentTypeRepository, appCaches: realCache);
 
@@ -200,8 +200,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void CreateVersions()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out ContentTypeRepository contentTypeRepository, out DataTypeRepository _);
 
@@ -380,8 +380,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void PropertyDataAssignedCorrectly()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 Template template = TemplateBuilder.CreateTextPageTemplate();
                 FileService.SaveTemplate(template);
@@ -479,8 +479,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void SaveContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 Template template = TemplateBuilder.CreateTextPageTemplate();
                 FileService.SaveTemplate(template);
@@ -501,8 +501,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void SaveContentWithDefaultTemplate()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out ContentTypeRepository contentTypeRepository, out TemplateRepository templateRepository);
 
@@ -534,8 +534,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void SaveContentWithAtSignInName()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 Template template = TemplateBuilder.CreateTextPageTemplate();
                 FileService.SaveTemplate(template);
@@ -565,8 +565,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void SaveContentMultiple()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 Template template = TemplateBuilder.CreateTextPageTemplate();
                 FileService.SaveTemplate(template);
@@ -591,8 +591,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetContentIsNotDirty()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -606,8 +606,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void UpdateContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -635,8 +635,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void UpdateContentWithNullTemplate()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -653,8 +653,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void DeleteContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out ContentTypeRepository contentTypeRepository);
                 IContentType contentType = contentTypeRepository.Get(_contentType.Id);
@@ -678,8 +678,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
                 IContent content = repository.Get(_subpage2.Id);
@@ -699,8 +699,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void QueryContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -716,8 +716,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             IContent[] result;
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
                 result = repository.GetMany().ToArray();
@@ -740,7 +740,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             }
 
             // get them all again
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
                 IContent[] result2 = repository.GetMany().ToArray();
@@ -830,8 +830,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             Assert.IsTrue(child1.Name.StartsWith("VAR"));
             Assert.IsTrue(child1.GetCultureName("en-US").StartsWith("VAR"));
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -877,8 +877,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetPagedResultsByQuery_CustomPropertySort()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -909,8 +909,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetPagedResultsByQuery_FirstPage()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -938,8 +938,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetPagedResultsByQuery_SecondPage()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -955,8 +955,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetPagedResultsByQuery_SinglePage()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -972,8 +972,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetPagedResultsByQuery_DescendingOrder()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -989,8 +989,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetPagedResultsByQuery_FilterMatchingSome()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -1008,8 +1008,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetPagedResultsByQuery_FilterMatchingAll()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -1027,8 +1027,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetAllContentByIds()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -1043,8 +1043,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetAllContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -1069,8 +1069,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void ExistContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -1083,8 +1083,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void CountContent()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 
@@ -1098,8 +1098,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void QueryContentByUniqueId()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = CreateRepository((IScopeAccessor)provider, out _);
 

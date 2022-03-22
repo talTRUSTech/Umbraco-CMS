@@ -35,8 +35,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Perform_Add_On_Repository()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 TagRepository repository = CreateRepository(provider);
 
@@ -55,8 +55,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Perform_Multiple_Adds_On_Repository()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 TagRepository repository = CreateRepository(provider);
 
@@ -85,8 +85,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Create_Tag_Relations()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -118,8 +118,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Append_Tag_Relations()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -162,8 +162,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Replace_Tag_Relations()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -209,8 +209,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Merge_Tag_Relations()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -254,8 +254,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Clear_Tag_Relations()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -294,8 +294,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Remove_Specific_Tags_From_Property()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -342,8 +342,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Content_By_Id()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -391,8 +391,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Content_By_Key()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -441,8 +441,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_All()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -479,8 +479,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_All_With_Ids()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -521,8 +521,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Content_For_Group()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -570,8 +570,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Property_By_Id()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -619,8 +619,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Property_By_Key()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -668,8 +668,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Property_For_Group()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -718,8 +718,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Entity_Type()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -779,8 +779,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tags_For_Entity_Type_For_Group()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -835,8 +835,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Cascade_Deletes_Tag_Relations()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -874,8 +874,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tagged_Entities_For_Tag_Group()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -966,8 +966,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Get_Tagged_Entities_For_Tag()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ScopeProvider.CreateCoreScope())
             {
                 // create data to relate to
                 // We have to create and save a template, otherwise we get an FK violation on contentType.
@@ -1051,7 +1051,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             }
         }
 
-        private TagRepository CreateRepository(IScopeProvider provider) =>
+        private TagRepository CreateRepository(ICoreScopeProvider provider) =>
             new TagRepository((IScopeAccessor)provider, AppCaches.Disabled, LoggerFactory.CreateLogger<TagRepository>());
     }
 }

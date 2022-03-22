@@ -38,7 +38,7 @@ namespace Umbraco.Cms.Infrastructure.DependencyInjection
                     factory.GetRequiredService<UrlSegmentProviderCollection>(),
                     factory.GetRequiredService<IUserService>(),
                     factory.GetRequiredService<IShortStringHelper>(),
-                    factory.GetRequiredService<IScopeProvider>(),
+                    factory.GetRequiredService<ICoreScopeProvider>(),
                     true));
             builder.Services.AddUnique<IContentValueSetBuilder>(factory =>
                 new ContentValueSetBuilder(
@@ -46,7 +46,7 @@ namespace Umbraco.Cms.Infrastructure.DependencyInjection
                     factory.GetRequiredService<UrlSegmentProviderCollection>(),
                     factory.GetRequiredService<IUserService>(),
                     factory.GetRequiredService<IShortStringHelper>(),
-                    factory.GetRequiredService<IScopeProvider>(),
+                    factory.GetRequiredService<ICoreScopeProvider>(),
                     false));
             builder.Services.AddUnique<IValueSetBuilder<IMedia>, MediaValueSetBuilder>();
             builder.Services.AddUnique<IValueSetBuilder<IMember>, MemberValueSetBuilder>();

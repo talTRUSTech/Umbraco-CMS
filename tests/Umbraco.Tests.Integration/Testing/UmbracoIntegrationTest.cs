@@ -167,9 +167,9 @@ namespace Umbraco.Cms.Tests.Integration.Testing
         protected virtual T GetRequiredService<T>() => Services.GetRequiredService<T>();
 
         /// <summary>
-        /// Gets the <see cref="IScopeProvider"/>
+        /// Gets the <see cref="ICoreScopeProvider"/>
         /// </summary>
-        protected IScopeProvider ScopeProvider => Services.GetRequiredService<IScopeProvider>();
+        protected ICoreScopeProvider ScopeProvider => Services.GetRequiredService<ICoreScopeProvider>();
 
         /// <summary>
         /// Gets the <see cref="IScopeAccessor"/>

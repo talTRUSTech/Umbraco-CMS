@@ -9,9 +9,9 @@ namespace Umbraco.Cms.Core.Logging.Viewer
     public class LogViewerConfig : ILogViewerConfig
     {
         private readonly ILogViewerQueryRepository _logViewerQueryRepository;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
 
-        public LogViewerConfig(ILogViewerQueryRepository logViewerQueryRepository, IScopeProvider scopeProvider)
+        public LogViewerConfig(ILogViewerQueryRepository logViewerQueryRepository, ICoreScopeProvider scopeProvider)
         {
             _logViewerQueryRepository = logViewerQueryRepository;
             _scopeProvider = scopeProvider;
@@ -19,7 +19,7 @@ namespace Umbraco.Cms.Core.Logging.Viewer
 
         public IReadOnlyList<SavedLogSearch> GetSavedSearches()
         {
-            using var scope = _scopeProvider.CreateScope(autoComplete: true);
+            using var scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             var logViewerQueries =  _logViewerQueryRepository.GetMany();
             var result = logViewerQueries.Select(x => new SavedLogSearch() { Name = x.Name, Query = x.Query }).ToArray();
             return result;
@@ -27,7 +27,7 @@ namespace Umbraco.Cms.Core.Logging.Viewer
 
         public IReadOnlyList<SavedLogSearch> AddSavedSearch(string name, string query)
         {
-            using var scope = _scopeProvider.CreateScope(autoComplete: true);
+            using var scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             _logViewerQueryRepository.Save(new LogViewerQuery(name, query));
 
             return GetSavedSearches();
@@ -35,7 +35,7 @@ namespace Umbraco.Cms.Core.Logging.Viewer
 
         public IReadOnlyList<SavedLogSearch> DeleteSavedSearch(string name, string query)
         {
-            using var scope = _scopeProvider.CreateScope(autoComplete: true);
+            using var scope = _scopeProvider.CreateCoreScope(autoComplete: true);
             var item = _logViewerQueryRepository.GetByName(name);
             _logViewerQueryRepository.Delete(item);
             //Return the updated object - so we can instantly reset the entire array from the API response

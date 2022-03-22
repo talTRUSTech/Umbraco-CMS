@@ -55,7 +55,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [SetUp]
         public void SetUp() => CreateTestData();
 
-        private RelationRepository CreateRepository(IScopeProvider provider, out RelationTypeRepository relationTypeRepository)
+        private RelationRepository CreateRepository(ICoreScopeProvider provider, out RelationTypeRepository relationTypeRepository)
         {
             relationTypeRepository = (RelationTypeRepository)GetRequiredService<IRelationTypeRepository>();
             return (RelationRepository)GetRequiredService<IRelationRepository>();
@@ -65,7 +65,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -84,7 +84,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -106,7 +106,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -125,7 +125,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Get_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -145,7 +145,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -164,7 +164,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_With_Params_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -184,7 +184,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             CreateTestDataForPagingTests(out List<IContent> createdContent, out List<IMember> createdMembers, out List<IMedia> createdMedia);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository relationTypeRepository);
 
@@ -254,7 +254,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             IRelationType relType = RelationService.GetRelationTypeByAlias(Constants.Conventions.RelationTypes.RelatedMediaAlias);
             RelationService.Relate(media.Id, media.Id, relType);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository relationTypeRepository);
 
@@ -275,7 +275,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             CreateTestDataForPagingTests(out List<IContent> createdContent, out List<IMember> createdMembers, out _);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out _);
 
@@ -455,7 +455,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Exists_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -473,7 +473,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Count_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -490,7 +490,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetByQuery_On_RelationRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -510,7 +510,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Delete_Content_And_Verify_Relation_Is_Removed()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 RelationRepository repository = CreateRepository(ScopeProvider, out RelationTypeRepository repositoryType);
 
@@ -545,7 +545,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 new Guid("A2CB7800-F571-4787-9638-BC48539A0EFB"),
                 false);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var accessor = (IScopeAccessor)ScopeProvider;
                 var relationTypeRepository = new RelationTypeRepository(accessor, AppCaches.Disabled, Mock.Of<ILogger<RelationTypeRepository>>());

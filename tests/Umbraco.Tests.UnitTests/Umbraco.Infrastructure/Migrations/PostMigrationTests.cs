@@ -28,7 +28,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
     public class PostMigrationTests
     {
         private static readonly ILoggerFactory s_loggerFactory = NullLoggerFactory.Instance;
-        private IMigrationPlanExecutor GetMigrationPlanExecutor(IScopeProvider scopeProvider, IScopeAccessor scopeAccessor,IMigrationBuilder builder)
+        private IMigrationPlanExecutor GetMigrationPlanExecutor(ICoreScopeProvider scopeProvider, IScopeAccessor scopeAccessor,IMigrationBuilder builder)
             => new MigrationPlanExecutor(scopeProvider, scopeAccessor, s_loggerFactory, builder);
 
         [Test]
@@ -51,7 +51,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
                 });
 
             var database = new TestDatabase();
-            IDatabaseScope scope = Mock.Of<IDatabaseScope>(x => x.Notifications == Mock.Of<IScopedNotificationPublisher>());
+            IScope scope = Mock.Of<IScope>(x => x.Notifications == Mock.Of<IScopedNotificationPublisher>());
             Mock.Get(scope)
                 .Setup(x => x.Database)
                 .Returns(database);
@@ -100,7 +100,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
                 });
 
             var database = new TestDatabase();
-            IDatabaseScope scope = Mock.Of<IDatabaseScope>(x => x.Notifications == Mock.Of<IScopedNotificationPublisher>());
+            IScope scope = Mock.Of<IScope>(x => x.Notifications == Mock.Of<IScopedNotificationPublisher>());
             Mock.Get(scope)
                 .Setup(x => x.Database)
                 .Returns(database);

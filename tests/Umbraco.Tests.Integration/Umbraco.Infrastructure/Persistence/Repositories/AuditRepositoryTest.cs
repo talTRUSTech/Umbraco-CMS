@@ -30,8 +30,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Can_Add_Audit_Entry()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
                 repo.Save(new AuditItem(-1, AuditType.System, -1, UmbracoObjectTypes.Document.GetName(), "This is a System audit trail"));
@@ -46,8 +46,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Get_Paged_Items()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = sp.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 
@@ -60,7 +60,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 scope.Complete();
             }
 
-            using (IScope scope = sp.CreateScope())
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 
@@ -74,8 +74,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Get_Paged_Items_By_User_Id_With_Query_And_Filter()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = sp.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 
@@ -88,7 +88,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 scope.Complete();
             }
 
-            using (IScope scope = sp.CreateScope())
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 
@@ -123,8 +123,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Get_Paged_Items_With_AuditType_Filter()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = sp.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 
@@ -137,7 +137,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 scope.Complete();
             }
 
-            using (IScope scope = sp.CreateScope())
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 
@@ -160,8 +160,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void Get_Paged_Items_With_Custom_Filter()
         {
-            IScopeProvider sp = ScopeProvider;
-            using (IScope scope = sp.CreateScope())
+            ICoreScopeProvider sp = ScopeProvider;
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 
@@ -174,7 +174,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 scope.Complete();
             }
 
-            using (IScope scope = sp.CreateScope())
+            using (ICoreScope scope = sp.CreateCoreScope())
             {
                 var repo = new AuditRepository((IScopeAccessor)sp, _logger);
 

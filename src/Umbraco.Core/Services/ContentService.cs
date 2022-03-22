@@ -36,7 +36,7 @@ namespace Umbraco.Cms.Core.Services
 
         #region Constructors
 
-        public ContentService(IScopeProvider provider, ILoggerFactory loggerFactory,
+        public ContentService(ICoreScopeProvider provider, ILoggerFactory loggerFactory,
             IEventMessagesFactory eventMessagesFactory,
             IDocumentRepository documentRepository, IEntityRepository entityRepository,
             IAuditRepository auditRepository,
@@ -89,7 +89,7 @@ namespace Umbraco.Cms.Core.Services
             // Store the result of doing the save of content for the rollback
             OperationResult rollbackSaveResult;
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var rollingBackNotification = new ContentRollingBackNotification(content, evtMsgs);
                 if (scope.Notifications.PublishCancelable(rollingBackNotification))
@@ -136,7 +136,7 @@ namespace Umbraco.Cms.Core.Services
 
         public int CountPublished(string contentTypeAlias = null)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.CountPublished(contentTypeAlias);
@@ -145,7 +145,7 @@ namespace Umbraco.Cms.Core.Services
 
         public int Count(string contentTypeAlias = null)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.Count(contentTypeAlias);
@@ -154,7 +154,7 @@ namespace Umbraco.Cms.Core.Services
 
         public int CountChildren(int parentId, string contentTypeAlias = null)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.CountChildren(parentId, contentTypeAlias);
@@ -163,7 +163,7 @@ namespace Umbraco.Cms.Core.Services
 
         public int CountDescendants(int parentId, string contentTypeAlias = null)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.CountDescendants(parentId, contentTypeAlias);
@@ -181,7 +181,7 @@ namespace Umbraco.Cms.Core.Services
         /// <param name="permissionSet"></param>
         public void SetPermissions(EntityPermissionSet permissionSet)
         {
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
                 _documentRepository.ReplaceContentPermissions(permissionSet);
@@ -197,7 +197,7 @@ namespace Umbraco.Cms.Core.Services
         /// <param name="groupIds"></param>
         public void SetPermission(IContent entity, char permission, IEnumerable<int> groupIds)
         {
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
                 _documentRepository.AssignEntityPermission(entity, permission, groupIds);
@@ -212,7 +212,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns></returns>
         public EntityPermissionCollection GetPermissions(IContent content)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetPermissionsForEntity(content.Id);
@@ -351,7 +351,7 @@ namespace Umbraco.Cms.Core.Services
         {
             // TODO: what about culture?
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 // locking the content tree secures content types too
                 scope.WriteLock(Constants.Locks.ContentTree);
@@ -398,7 +398,7 @@ namespace Umbraco.Cms.Core.Services
                 throw new ArgumentNullException(nameof(parent));
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 // locking the content tree secures content types too
                 scope.WriteLock(Constants.Locks.ContentTree);
@@ -431,7 +431,7 @@ namespace Umbraco.Cms.Core.Services
         /// </returns>
         public IContent GetById(int id)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.Get(id);
@@ -453,7 +453,7 @@ namespace Umbraco.Cms.Core.Services
                 return Enumerable.Empty<IContent>();
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 IEnumerable<IContent> items = _documentRepository.GetMany(idsA);
@@ -473,7 +473,7 @@ namespace Umbraco.Cms.Core.Services
         /// </returns>
         public IContent GetById(Guid key)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.Get(key);
@@ -483,7 +483,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public ContentScheduleCollection GetContentScheduleByContentId(int contentId)
         {
-            using (var scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (var scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Cms.Core.Constants.Locks.ContentTree);
                 return _documentRepository.GetContentSchedule(contentId);
@@ -493,7 +493,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public void PersistContentSchedule(IContent content, ContentScheduleCollection contentSchedule)
         {
-            using (var scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (var scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.WriteLock(Cms.Core.Constants.Locks.ContentTree);
                 _documentRepository.PersistContentSchedule(content, contentSchedule);
@@ -523,7 +523,7 @@ namespace Umbraco.Cms.Core.Services
                 return Enumerable.Empty<IContent>();
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 IEnumerable<IContent> items = _documentRepository.GetMany(idsA);
@@ -554,7 +554,7 @@ namespace Umbraco.Cms.Core.Services
                 ordering = Ordering.By("sortOrder");
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetPage(
@@ -582,7 +582,7 @@ namespace Umbraco.Cms.Core.Services
                 ordering = Ordering.By("sortOrder");
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetPage(
@@ -599,7 +599,7 @@ namespace Umbraco.Cms.Core.Services
         /// <remarks>Contrary to most methods, this method filters out trashed content items.</remarks>
         public IEnumerable<IContent> GetByLevel(int level)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 IQuery<IContent> query = Query<IContent>().Where(x => x.Level == level && x.Trashed == false);
@@ -614,7 +614,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns>An <see cref="IContent" /> item</returns>
         public IContent GetVersion(int versionId)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetVersion(versionId);
@@ -628,7 +628,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns>An Enumerable list of <see cref="IContent" /> objects</returns>
         public IEnumerable<IContent> GetVersions(int id)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetAllVersions(id);
@@ -641,7 +641,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns>An Enumerable list of <see cref="IContent" /> objects</returns>
         public IEnumerable<IContent> GetVersionsSlim(int id, int skip, int take)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetAllVersionsSlim(id, skip, take);
@@ -656,7 +656,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns></returns>
         public IEnumerable<int> GetVersionIds(int id, int maxRows)
         {
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 return _documentRepository.GetVersionIds(id, maxRows);
             }
@@ -693,7 +693,7 @@ namespace Umbraco.Cms.Core.Services
                 return new List<IContent>();
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetMany(ids);
@@ -707,7 +707,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns>An Enumerable list of published <see cref="IContent" /> objects</returns>
         public IEnumerable<IContent> GetPublishedChildren(int id)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 IQuery<IContent> query = Query<IContent>().Where(x => x.ParentId == id && x.Published);
@@ -734,7 +734,7 @@ namespace Umbraco.Cms.Core.Services
                 ordering = Ordering.By("sortOrder");
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
 
@@ -752,7 +752,7 @@ namespace Umbraco.Cms.Core.Services
                 ordering = Ordering.By("Path");
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
 
@@ -841,7 +841,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns>An Enumerable list of <see cref="IContent" /> objects</returns>
         public IEnumerable<IContent> GetRootContent()
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 IQuery<IContent> query = Query<IContent>().Where(x => x.ParentId == Constants.System.Root);
@@ -855,7 +855,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns></returns>
         internal IEnumerable<IContent> GetAllPublished()
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.Get(QueryNotTrashed);
@@ -865,7 +865,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public IEnumerable<IContent> GetContentForExpiration(DateTime date)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetContentForExpiration(date);
@@ -875,7 +875,7 @@ namespace Umbraco.Cms.Core.Services
         /// <inheritdoc />
         public IEnumerable<IContent> GetContentForRelease(DateTime date)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.GetContentForRelease(date);
@@ -889,7 +889,7 @@ namespace Umbraco.Cms.Core.Services
         public IEnumerable<IContent> GetPagedContentInRecycleBin(long pageIndex, int pageSize, out long totalRecords,
             IQuery<IContent> filter = null, Ordering ordering = null)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 if (ordering == null)
                 {
@@ -935,7 +935,7 @@ namespace Umbraco.Cms.Core.Services
 
         public bool IsPathPublished(IContent content)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.IsPathPublished(content);
@@ -964,7 +964,7 @@ namespace Umbraco.Cms.Core.Services
 
             EventMessages eventMessages = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var savingNotification = new ContentSavingNotification(content, eventMessages);
                 if (scope.Notifications.PublishCancelable(savingNotification))
@@ -1032,7 +1032,7 @@ namespace Umbraco.Cms.Core.Services
             EventMessages eventMessages = EventMessagesFactory.Get();
             IContent[] contentsA = contents.ToArray();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var savingNotification = new ContentSavingNotification(contentsA, eventMessages);
                 if (scope.Notifications.PublishCancelable(savingNotification))
@@ -1104,7 +1104,7 @@ namespace Umbraco.Cms.Core.Services
                 throw new InvalidOperationException("Name cannot be more than 255 characters in length.");
             }
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -1152,7 +1152,7 @@ namespace Umbraco.Cms.Core.Services
                 throw new InvalidOperationException("Name cannot be more than 255 characters in length.");
             }
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -1241,7 +1241,7 @@ namespace Umbraco.Cms.Core.Services
                 return new PublishResult(PublishResultType.SuccessUnpublishAlready, evtMsgs, content);
             }
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -1324,7 +1324,7 @@ namespace Umbraco.Cms.Core.Services
         internal PublishResult CommitDocumentChanges(IContent content,
             int userId = Constants.Security.SuperUserId)
         {
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 EventMessages evtMsgs = EventMessagesFactory.Get();
 
@@ -1365,7 +1365,7 @@ namespace Umbraco.Cms.Core.Services
         ///         saving/publishing, branch saving/publishing, etc...
         ///     </para>
         /// </remarks>
-        private PublishResult CommitDocumentChangesInternal(IScope scope, IContent content,
+        private PublishResult CommitDocumentChangesInternal(ICoreScope scope, IContent content,
             EventMessages eventMessages, IReadOnlyCollection<ILanguage> allLangs,
             IDictionary<string, object> notificationState,
             int userId = Constants.Security.SuperUserId,
@@ -1695,7 +1695,7 @@ namespace Umbraco.Cms.Core.Services
         private void PerformScheduledPublishingExpiration(DateTime date, List<PublishResult> results,
             EventMessages evtMsgs, Lazy<List<ILanguage>> allLangs)
         {
-            using IScope scope = ScopeProvider.CreateScope();
+            using ICoreScope scope = ScopeProvider.CreateCoreScope();
 
             // do a fast read without any locks since this executes often to see if we even need to proceed
             if (_documentRepository.HasContentForExpiration(date))
@@ -1770,7 +1770,7 @@ namespace Umbraco.Cms.Core.Services
         private void PerformScheduledPublishingRelease(DateTime date, List<PublishResult> results,
             EventMessages evtMsgs, Lazy<List<ILanguage>> allLangs)
         {
-            using IScope scope = ScopeProvider.CreateScope();
+            using ICoreScope scope = ScopeProvider.CreateCoreScope();
 
             // do a fast read without any locks since this executes often to see if we even need to proceed
             if (_documentRepository.HasContentForRelease(date))
@@ -2064,7 +2064,7 @@ namespace Umbraco.Cms.Core.Services
             var results = new List<PublishResult>();
             var publishedDocuments = new List<IContent>();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -2153,7 +2153,7 @@ namespace Umbraco.Cms.Core.Services
         // shouldPublish: a function determining whether the document has changes that need to be published
         //  note - 'force' is handled by 'editing'
         // publishValues: a function publishing values (using the appropriate PublishCulture calls)
-        private PublishResult SaveAndPublishBranchItem(IScope scope, IContent document,
+        private PublishResult SaveAndPublishBranchItem(ICoreScope scope, IContent document,
             Func<IContent, HashSet<string>> shouldPublish,
             Func<IContent, HashSet<string>, IReadOnlyCollection<ILanguage>, bool> publishCultures,
             bool isRoot,
@@ -2203,7 +2203,7 @@ namespace Umbraco.Cms.Core.Services
         {
             EventMessages eventMessages = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 if (scope.Notifications.PublishCancelable(new ContentDeletingNotification(content, eventMessages)))
                 {
@@ -2233,7 +2233,7 @@ namespace Umbraco.Cms.Core.Services
             return OperationResult.Succeed(eventMessages);
         }
 
-        private void DeleteLocked(IScope scope, IContent content, EventMessages evtMsgs)
+        private void DeleteLocked(ICoreScope scope, IContent content, EventMessages evtMsgs)
         {
             void DoDelete(IContent c)
             {
@@ -2275,7 +2275,7 @@ namespace Umbraco.Cms.Core.Services
         {
             EventMessages evtMsgs = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var deletingVersionsNotification =
                     new ContentDeletingVersionsNotification(id, evtMsgs, dateToRetain: versionDate);
@@ -2310,7 +2310,7 @@ namespace Umbraco.Cms.Core.Services
         {
             EventMessages evtMsgs = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var deletingVersionsNotification = new ContentDeletingVersionsNotification(id, evtMsgs, versionId);
                 if (scope.Notifications.PublishCancelable(deletingVersionsNotification))
@@ -2352,7 +2352,7 @@ namespace Umbraco.Cms.Core.Services
             EventMessages eventMessages = EventMessagesFactory.Get();
             var moves = new List<(IContent, string)>();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -2417,7 +2417,7 @@ namespace Umbraco.Cms.Core.Services
 
             var moves = new List<(IContent, string)>();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -2543,7 +2543,7 @@ namespace Umbraco.Cms.Core.Services
             var deleted = new List<IContent>();
             EventMessages eventMessages = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -2579,7 +2579,7 @@ namespace Umbraco.Cms.Core.Services
 
         public bool RecycleBinSmells()
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return _documentRepository.RecycleBinSmells();
@@ -2622,7 +2622,7 @@ namespace Umbraco.Cms.Core.Services
             IContent copy = content.DeepCloneWithResetIdentities();
             copy.ParentId = parentId;
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 if (scope.Notifications.PublishCancelable(
                         new ContentCopyingNotification(content, copy, parentId, eventMessages)))
@@ -2744,7 +2744,7 @@ namespace Umbraco.Cms.Core.Services
         {
             EventMessages evtMsgs = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var sendingToPublishNotification = new ContentSendingToPublishNotification(content, evtMsgs);
                 if (scope.Notifications.PublishCancelable(sendingToPublishNotification))
@@ -2812,7 +2812,7 @@ namespace Umbraco.Cms.Core.Services
                 return new OperationResult(OperationResultType.NoOperation, evtMsgs);
             }
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -2843,7 +2843,7 @@ namespace Umbraco.Cms.Core.Services
                 return new OperationResult(OperationResultType.NoOperation, evtMsgs);
             }
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
                 IContent[] itemsA = GetByIds(idsA).ToArray();
@@ -2854,7 +2854,7 @@ namespace Umbraco.Cms.Core.Services
             }
         }
 
-        private OperationResult Sort(IScope scope, IContent[] itemsA, int userId, EventMessages eventMessages)
+        private OperationResult Sort(ICoreScope scope, IContent[] itemsA, int userId, EventMessages eventMessages)
         {
             var sortingNotification = new ContentSortingNotification(itemsA, eventMessages);
             var savingNotification = new ContentSavingNotification(itemsA, eventMessages);
@@ -2921,7 +2921,7 @@ namespace Umbraco.Cms.Core.Services
 
         public ContentDataIntegrityReport CheckDataIntegrity(ContentDataIntegrityReportOptions options)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -2953,7 +2953,7 @@ namespace Umbraco.Cms.Core.Services
         /// <returns>An Enumerable list of <see cref="IContent" /> objects</returns>
         internal IEnumerable<IContent> GetPublishedDescendants(IContent content)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 return GetPublishedDescendantsLocked(content).ToArray(); // ToArray important in uow!
@@ -3012,7 +3012,7 @@ namespace Umbraco.Cms.Core.Services
         /// <param name="allLangs"></param>
         /// <param name="notificationState"></param>
         /// <returns></returns>
-        private PublishResult StrategyCanPublish(IScope scope, IContent content, bool checkPath,
+        private PublishResult StrategyCanPublish(ICoreScope scope, IContent content, bool checkPath,
             IReadOnlyList<string> culturesPublishing,
             IReadOnlyCollection<string> culturesUnpublishing, EventMessages evtMsgs,
             IReadOnlyCollection<ILanguage> allLangs, IDictionary<string, object> notificationState)
@@ -3236,7 +3236,7 @@ namespace Umbraco.Cms.Core.Services
         /// <param name="content"></param>
         /// <param name="evtMsgs"></param>
         /// <returns></returns>
-        private PublishResult StrategyCanUnpublish(IScope scope, IContent content, EventMessages evtMsgs)
+        private PublishResult StrategyCanUnpublish(ICoreScope scope, IContent content, EventMessages evtMsgs)
         {
             // raise Unpublishing notification
             if (scope.Notifications.PublishCancelable(new ContentUnpublishingNotification(content, evtMsgs)))
@@ -3329,7 +3329,7 @@ namespace Umbraco.Cms.Core.Services
             // PerformMoveLocked and DeleteLocked that must be applied immediately,
             // no point queuing operations
             //
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -3397,7 +3397,7 @@ namespace Umbraco.Cms.Core.Services
         public void DeleteOfType(int contentTypeId, int userId = Constants.Security.SuperUserId) =>
             DeleteOfTypes(new[] { contentTypeId }, userId);
 
-        private IContentType GetContentType(IScope scope, string contentTypeAlias)
+        private IContentType GetContentType(ICoreScope scope, string contentTypeAlias)
         {
             if (contentTypeAlias == null)
             {
@@ -3437,7 +3437,7 @@ namespace Umbraco.Cms.Core.Services
                     nameof(contentTypeAlias));
             }
 
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 return GetContentType(scope, contentTypeAlias);
             }
@@ -3449,7 +3449,7 @@ namespace Umbraco.Cms.Core.Services
 
         public IContent GetBlueprintById(int id)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 IContent blueprint = _documentBlueprintRepository.Get(id);
@@ -3464,7 +3464,7 @@ namespace Umbraco.Cms.Core.Services
 
         public IContent GetBlueprintById(Guid id)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 IContent blueprint = _documentBlueprintRepository.Get(id);
@@ -3489,7 +3489,7 @@ namespace Umbraco.Cms.Core.Services
 
             content.Blueprint = true;
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 
@@ -3515,7 +3515,7 @@ namespace Umbraco.Cms.Core.Services
         {
             EventMessages evtMsgs = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
                 _documentBlueprintRepository.Delete(content);
@@ -3545,7 +3545,7 @@ namespace Umbraco.Cms.Core.Services
             if (blueprint.CultureInfos.Count > 0)
             {
                 cultures = blueprint.CultureInfos.Values.Select(x => x.Culture);
-                using (IScope scope = ScopeProvider.CreateScope())
+                using (ICoreScope scope = ScopeProvider.CreateCoreScope())
                 {
                     if (blueprint.CultureInfos.TryGetValue(_languageRepository.GetDefaultIsoCode(),
                             out ContentCultureInfos defaultCulture))
@@ -3577,7 +3577,7 @@ namespace Umbraco.Cms.Core.Services
 
         public IEnumerable<IContent> GetBlueprintsForContentTypes(params int[] contentTypeId)
         {
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IQuery<IContent> query = Query<IContent>();
                 if (contentTypeId.Length > 0)
@@ -3598,7 +3598,7 @@ namespace Umbraco.Cms.Core.Services
         {
             EventMessages evtMsgs = EventMessagesFactory.Get();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 scope.WriteLock(Constants.Locks.ContentTree);
 

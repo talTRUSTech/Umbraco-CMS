@@ -20,20 +20,20 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Mapping
     [TestFixture]
     public class MappingTests
     {
-        private IScopeProvider _scopeProvider;
+        private ICoreScopeProvider _scopeProvider;
 
         [SetUp]
         public void MockScopeProvider()
         {
-            var scopeMock = new Mock<IScopeProvider>();
-            scopeMock.Setup(x => x.CreateScope(
+            var scopeMock = new Mock<ICoreScopeProvider>();
+            scopeMock.Setup(x => x.CreateCoreScope(
                     It.IsAny<IsolationLevel>(),
                     It.IsAny<RepositoryCacheMode>(),
                     It.IsAny<IScopedNotificationPublisher>(),
                     It.IsAny<bool?>(),
                     It.IsAny<bool>(),
                     It.IsAny<bool>()))
-                .Returns(Mock.Of<IScope>);
+                .Returns(Mock.Of<ICoreScope>);
 
             _scopeProvider = scopeMock.Object;
         }

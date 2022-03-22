@@ -36,7 +36,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.NPoco
             // prob not what we want, this is not a real database, but hey, the test is ignored anyways
             // we'll fix this when we have proper testing infrastructure
             // var dbSqlServer = TestObjects.GetUmbracoSqlServerDatabase(new NullLogger<UmbracoDatabase>());
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 // Still no what we want, but look above.
                 IUmbracoDatabase dbSqlServer = ScopeAccessor.AmbientScope.Database;
@@ -101,7 +101,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.NPoco
             // Act
             using (ProfilingLogger.TraceDuration<NPocoBulkInsertTests>("starting insert", "finished insert"))
             {
-                using (IScope scope = ScopeProvider.CreateScope())
+                using (ICoreScope scope = ScopeProvider.CreateCoreScope())
                 {
                     ScopeAccessor.AmbientScope.Database.BulkInsertRecords(servers);
                     scope.Complete();
@@ -109,7 +109,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.NPoco
             }
 
             // Assert
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 Assert.That(ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>("SELECT COUNT(*) FROM umbracoServer"), Is.EqualTo(1000));
             }
@@ -134,7 +134,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.NPoco
             // Act
             using (ProfilingLogger.TraceDuration<NPocoBulkInsertTests>("starting insert", "finished insert"))
             {
-                using (IScope scope = ScopeProvider.CreateScope())
+                using (ICoreScope scope = ScopeProvider.CreateCoreScope())
                 {
                     ScopeAccessor.AmbientScope.Database.BulkInsertRecords(servers);
 
@@ -143,7 +143,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.NPoco
             }
 
             // Assert
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 Assert.That(ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>("SELECT COUNT(*) FROM umbracoServer"), Is.EqualTo(0));
             }
@@ -166,7 +166,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.NPoco
             }
 
             IDbCommand[] commands;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 commands = ScopeAccessor.AmbientScope.Database.GenerateBulkInsertCommands(servers.ToArray());
                 scope.Complete();
@@ -196,7 +196,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.NPoco
             }
 
             IDbCommand[] commands;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 commands = ScopeAccessor.AmbientScope.Database.GenerateBulkInsertCommands(servers.ToArray());
                 scope.Complete();

@@ -59,7 +59,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
 
         private string GetJson(int id)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 Sql<ISqlContext> selectJson = SqlContext.Sql().Select<ContentNuDto>().From<ContentNuDto>().Where<ContentNuDto>(x => x.NodeId == id && !x.Published);
                 ContentNuDto dto = ScopeAccessor.AmbientScope.Database.Fetch<ContentNuDto>(selectJson).FirstOrDefault();

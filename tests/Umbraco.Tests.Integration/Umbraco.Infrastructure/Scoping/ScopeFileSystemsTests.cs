@@ -4,7 +4,6 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -12,12 +11,12 @@ using NUnit.Framework;
 using Umbraco.Cms.Core.Hosting;
 using Umbraco.Cms.Core.IO;
 using Umbraco.Cms.Core.Scoping;
+using Umbraco.Cms.Infrastructure.Scoping;
 using Umbraco.Cms.Tests.Common;
 using Umbraco.Cms.Tests.Common.Testing;
 using Umbraco.Cms.Tests.Integration.Testing;
 using Umbraco.Extensions;
 using Constants = Umbraco.Cms.Core.Constants;
-using FileSystems = Umbraco.Cms.Core.IO.FileSystems;
 
 namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
 {
@@ -55,7 +54,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
 
             Assert.IsFalse(physMediaFileSystem.FileExists("f1.txt"));
 
-            using (ScopeProvider.CreateScope(scopeFileSystems: true))
+            using (ScopeProvider.CreateCoreScope(scopeFileSystems: true))
             {
                 using (var ms = new MemoryStream(Encoding.UTF8.GetBytes("foo")))
                 {
@@ -84,7 +83,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
 
             Assert.IsFalse(physMediaFileSystem.FileExists("f1.txt"));
 
-            using (IScope scope = ScopeProvider.CreateScope(scopeFileSystems: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(scopeFileSystems: true))
             {
                 using (var ms = new MemoryStream(Encoding.UTF8.GetBytes("foo")))
                 {
@@ -114,8 +113,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
             MediaFileManager mediaFileManager = MediaFileManager;
             var taskHelper = new TaskHelper(Mock.Of<ILogger<TaskHelper>>());
 
-            IScopeProvider scopeProvider = ScopeProvider;
-            using (IScope scope = scopeProvider.CreateScope(scopeFileSystems: true))
+            ICoreScopeProvider scopeProvider = ScopeProvider;
+            using (ICoreScope scope = scopeProvider.CreateCoreScope(scopeFileSystems: true))
             {
                 using (var ms = new MemoryStream(Encoding.UTF8.GetBytes("foo")))
                 {
@@ -152,16 +151,16 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
         public void SingleShadow()
         {
             var taskHelper = new TaskHelper(Mock.Of<ILogger<TaskHelper>>());
-            IScopeProvider scopeProvider = ScopeProvider;
+            ICoreScopeProvider scopeProvider = ScopeProvider;
             bool isThrown = false;
-            using (IScope scope = scopeProvider.CreateScope(scopeFileSystems: true))
+            using (ICoreScope scope = scopeProvider.CreateCoreScope(scopeFileSystems: true))
             {
                 // This is testing when another thread concurrently tries to create a scoped file system
                 // because at the moment we don't support concurrent scoped filesystems.
                 Task t = taskHelper.ExecuteBackgroundTask(() =>
                 {
                     // ok to create a 'normal' other scope
-                    using (IScope other = scopeProvider.CreateScope())
+                    using (ICoreScope other = scopeProvider.CreateCoreScope())
                     {
                         other.Complete();
                     }
@@ -170,7 +169,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
                     // we will get a "Already shadowing." exception.
                     Assert.Throws<InvalidOperationException>(() =>
                     {
-                        using IScope other = scopeProvider.CreateScope(scopeFileSystems: true);
+                        using ICoreScope other = scopeProvider.CreateCoreScope(scopeFileSystems: true);
                     });
 
                     isThrown = true;
@@ -189,7 +188,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
         {
             var taskHelper = new TaskHelper(Mock.Of<ILogger<TaskHelper>>());
             var scopeProvider = (ScopeProvider)ScopeProvider;
-            using (IScope scope = scopeProvider.CreateScope(scopeFileSystems: true))
+            using (ICoreScope scope = scopeProvider.CreateCoreScope(scopeFileSystems: true))
             {
                 // This is testing when another thread concurrently tries to create a scoped file system
                 // because at the moment we don't support concurrent scoped filesystems.
@@ -201,7 +200,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
                     // we will get a "Already shadowing." exception.
                     Assert.Throws<InvalidOperationException>(() =>
                     {
-                        using IScope other = scopeProvider.CreateDetachedScope(scopeFileSystems: true);
+                        using ICoreScope other = scopeProvider.CreateCoreDetachedScope(scopeFileSystems: true);
                     });
 
                     return Task.CompletedTask;
@@ -210,14 +209,14 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
                 Task.WaitAll(t);
             }
 
-            IScope detached = scopeProvider.CreateDetachedScope(scopeFileSystems: true);
+            ICoreScope detached = scopeProvider.CreateCoreDetachedScope(scopeFileSystems: true);
 
             Assert.IsNull(scopeProvider.AmbientScope);
 
             Assert.Throws<InvalidOperationException>(() =>
             {
                 // even if there is no ambient scope, there's a single shadow
-                using IScope other = scopeProvider.CreateScope(scopeFileSystems: true);
+                using ICoreScope other = scopeProvider.CreateCoreScope(scopeFileSystems: true);
             });
 
             scopeProvider.AttachScope(detached);

@@ -33,7 +33,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             DateTime latest = DateTime.Now.AddDays(-1);
             DateTime oldest = DateTime.Now.AddDays(-10);
 
-            using (global::Umbraco.Cms.Core.Scoping.IScope scope = ScopeProvider.CreateScope())
+            using (global::Umbraco.Cms.Core.Scoping.ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 // insert duplicates manuall
                 ScopeAccessor.AmbientScope.Database.Insert(new ExternalLoginDto

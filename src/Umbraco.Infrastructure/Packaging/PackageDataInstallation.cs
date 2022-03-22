@@ -33,7 +33,7 @@ namespace Umbraco.Cms.Infrastructure.Packaging
         private readonly ILocalizationService _localizationService;
         private readonly IDataTypeService _dataTypeService;
         private readonly PropertyEditorCollection _propertyEditors;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
         private readonly IShortStringHelper _shortStringHelper;
         private readonly GlobalSettings _globalSettings;
         private readonly IConfigurationEditorJsonSerializer _serializer;
@@ -55,7 +55,7 @@ namespace Umbraco.Cms.Infrastructure.Packaging
             IContentTypeService contentTypeService,
             IContentService contentService,
             PropertyEditorCollection propertyEditors,
-            IScopeProvider scopeProvider,
+            ICoreScopeProvider scopeProvider,
             IShortStringHelper shortStringHelper,
             IOptions<GlobalSettings> globalSettings,
             IConfigurationEditorJsonSerializer serializer,
@@ -86,7 +86,7 @@ namespace Umbraco.Cms.Infrastructure.Packaging
 
         public InstallationSummary InstallPackageData(CompiledPackage compiledPackage, int userId)
         {
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 var installationSummary = new InstallationSummary(compiledPackage.Name)
                 {

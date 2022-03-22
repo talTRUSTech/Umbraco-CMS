@@ -33,7 +33,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
         {
 
             // create a few lock objects
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 var database = ScopeAccessor.AmbientScope.Database;
                 database.Insert("umbracoLock", "id", false, new LockDto { Id = 1, Name = "Lock.1" });
@@ -46,7 +46,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
         [Test]
         public void SingleReadLockTest()
         {
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 scope.EagerReadLock(Constants.Locks.Servers);
                 scope.Complete();
@@ -70,7 +70,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
                 var ic = i; // capture
                 threads[i] = new Thread(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         try
                         {
@@ -128,7 +128,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
         {
             var sqlCount = 0;
 
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 var db = ScopeAccessor.AmbientScope.Database;
                 try
@@ -175,7 +175,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
                 var ic = i; // capture
                 threads[i] = new Thread(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         try
                         {
@@ -305,7 +305,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
 
         private void DeadLockTestThread(int id1, int id2, EventWaitHandle myEv, WaitHandle otherEv, ref Exception exception)
         {
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 try
                 {
@@ -390,7 +390,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
             {
                 var t1 = Task.Run(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         Console.WriteLine("Write lock A");
                         // This will acquire right away
@@ -405,7 +405,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
 
                 var t2 = Task.Run(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         Console.WriteLine("Read lock B");
 
@@ -429,7 +429,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
             {
                 var t1 = Task.Run(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
 
                         Console.WriteLine("Write lock A");
@@ -445,7 +445,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
 
                 var t2 = Task.Run(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         Console.WriteLine("Write lock B");
 
@@ -478,7 +478,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
             {
                 var t1 = Task.Run(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         Console.WriteLine("Write lock A");
                         // This will acquire right away
@@ -494,7 +494,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
 
                 var t2 = Task.Run(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         Console.WriteLine("Read lock B");
 
@@ -513,7 +513,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
 
                 var t3 = Task.Run(() =>
                 {
-                    using (var scope = ScopeProvider.CreateScope())
+                    using (var scope = ScopeProvider.CreateCoreScope())
                     {
                         Console.WriteLine("Read lock C");
 
@@ -538,7 +538,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
         [Test]
         public void Lock_Exceeds_Command_Timeout()
         {
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 var realDb = (Database)ScopeAccessor.AmbientScope.Database;
                 realDb.CommandTimeout = 1000;
@@ -554,7 +554,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
 
         private void NoDeadLockTestThread(int id, EventWaitHandle myEv, WaitHandle otherEv, ref Exception exception)
         {
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 try
                 {

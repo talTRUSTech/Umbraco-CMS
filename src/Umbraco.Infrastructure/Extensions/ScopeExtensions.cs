@@ -5,7 +5,7 @@ namespace Umbraco.Extensions
 {
     public static class ScopeExtensions
     {
-        public static void ReadLock(this IScope scope, ICollection<int> lockIds)
+        public static void ReadLock(this ICoreScope scope, ICollection<int> lockIds)
         {
             foreach(var lockId in lockIds)
             {
@@ -13,7 +13,7 @@ namespace Umbraco.Extensions
             } 
         }
 
-        public static void WriteLock(this IScope scope, ICollection<int> lockIds)
+        public static void WriteLock(this ICoreScope scope, ICollection<int> lockIds)
         {
             foreach (var lockId in lockIds)
             {

@@ -225,16 +225,16 @@ namespace Umbraco.Cms.Tests.UnitTests.TestHelpers
             DomainService = serviceContext.DomainService;
 
             // create a scope provider
-            IScopeProvider scopeProvider = Mock.Of<IScopeProvider>();
+            ICoreScopeProvider scopeProvider = Mock.Of<ICoreScopeProvider>();
             Mock.Get(scopeProvider)
-                .Setup(x => x.CreateScope(
+                .Setup(x => x.CreateCoreScope(
                     It.IsAny<IsolationLevel>(),
                     It.IsAny<RepositoryCacheMode>(),
                     It.IsAny<IScopedNotificationPublisher>(),
                     It.IsAny<bool?>(),
                     It.IsAny<bool>(),
                     It.IsAny<bool>()))
-                .Returns(Mock.Of<IScope>);
+                .Returns(Mock.Of<ICoreScope>);
 
             // create a published content type factory
             PublishedContentTypeFactory = new PublishedContentTypeFactory(

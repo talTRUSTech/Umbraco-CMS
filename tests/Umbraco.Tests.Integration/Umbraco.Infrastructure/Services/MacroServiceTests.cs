@@ -30,8 +30,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
         [SetUp]
         public void SetupTest()
         {
-            IScopeProvider scopeProvider = ScopeProvider;
-            using (IScope scope = scopeProvider.CreateScope())
+            ICoreScopeProvider scopeProvider = ScopeProvider;
+            using (ICoreScope scope = scopeProvider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)scopeProvider, AppCaches.Disabled, Mock.Of<ILogger<MacroRepository>>(), ShortStringHelper);
 

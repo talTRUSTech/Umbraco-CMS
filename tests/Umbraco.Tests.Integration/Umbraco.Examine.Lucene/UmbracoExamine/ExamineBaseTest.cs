@@ -81,15 +81,15 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Examine.Lucene.UmbracoExamine
                         return Attempt<PublicAccessEntry>.Fail();
                     });
 
-                var scopeProviderMock = new Mock<IScopeProvider>();
-                scopeProviderMock.Setup(x => x.CreateScope(
+                var scopeProviderMock = new Mock<ICoreScopeProvider>();
+                scopeProviderMock.Setup(x => x.CreateCoreScope(
                         It.IsAny<IsolationLevel>(),
                         It.IsAny<RepositoryCacheMode>(),
                         It.IsAny<IScopedNotificationPublisher>(),
                         It.IsAny<bool?>(),
                         It.IsAny<bool>(),
                         It.IsAny<bool>()))
-                    .Returns(Mock.Of<IScope>);
+                    .Returns(Mock.Of<ICoreScope>);
 
                 validator = new ContentValueSetValidator(
                     publishedValuesOnly,

@@ -36,7 +36,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
         [Test]
         public void GivenScope_WhenNotificationsSuppressed_ThenNotificationsDoNotExecute()
         {
-            using IScope scope = ScopeProvider.CreateScope(autoComplete: true);
+            using ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true);
             using IDisposable _ = scope.Notifications.Suppress();
 
             ContentType contentType = ContentTypeBuilder.CreateBasicContentType();
@@ -48,11 +48,11 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
         [Test]
         public void GivenNestedScope_WhenOuterNotificationsSuppressed_ThenNotificationsDoNotExecute()
         {
-            using (IScope parentScope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope parentScope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 using IDisposable _ = parentScope.Notifications.Suppress();
 
-                using (IScope childScope = ScopeProvider.CreateScope(autoComplete: true))
+                using (ICoreScope childScope = ScopeProvider.CreateCoreScope(autoComplete: true))
                 {
                     ContentType contentType = ContentTypeBuilder.CreateBasicContentType();
                     ContentTypeService.Save(contentType);
@@ -66,7 +66,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
         public void GivenSuppressedNotifications_WhenDisposed_ThenNotificationsExecute()
         {
             int asserted = 0;
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 using IDisposable suppressed = scope.Notifications.Suppress();
 
@@ -86,10 +86,10 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Scoping
         [Test]
         public void GivenSuppressedNotificationsOnParent_WhenChildSuppresses_ThenExceptionIsThrown()
         {
-            using (IScope parentScope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope parentScope = ScopeProvider.CreateCoreScope(autoComplete: true))
             using (IDisposable parentSuppressed = parentScope.Notifications.Suppress())
             {
-                using (IScope childScope = ScopeProvider.CreateScope(autoComplete: true))                
+                using (ICoreScope childScope = ScopeProvider.CreateCoreScope(autoComplete: true))                
                 {
                     Assert.Throws<InvalidOperationException>(() => childScope.Notifications.Suppress());
                 }

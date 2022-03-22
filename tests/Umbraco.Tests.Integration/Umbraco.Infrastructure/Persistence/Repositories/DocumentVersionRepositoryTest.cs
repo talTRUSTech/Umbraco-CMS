@@ -42,7 +42,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             ContentService.SaveAndPublish(content);
             // At this point content has 3 versions, a historic version, a draft version and a published version.
 
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 var sut = new DocumentVersionRepository(ScopeAccessor);
                 var results = sut.GetDocumentVersionsEligibleForCleanup();
@@ -77,7 +77,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             var allVersions = ContentService.GetVersions(content.Id);
             Debug.Assert(allVersions.Count() == 5); // Sanity check
 
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 ScopeAccessor.AmbientScope.Database.Update<ContentVersionDto>("set preventCleanup = 1 where id in (1,3)");
 
@@ -112,7 +112,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             ContentService.SaveAndPublish(content);
             ContentService.SaveAndPublish(content);
             ContentService.SaveAndPublish(content);
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 var query = ScopeAccessor.AmbientScope.SqlContext.Sql();
 
@@ -147,7 +147,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             ContentService.SaveAndPublish(content); // Draft + Published
             ContentService.SaveAndPublish(content); // New Draft
 
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 var sut = new DocumentVersionRepository((IScopeAccessor)ScopeProvider);
                 var page1 = sut.GetPagedItemsByContentId(content.Id, 0, 2, out var page1Total);
@@ -185,7 +185,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             ContentService.SaveAndPublish(content, "en-US"); // Draft + Published
             ContentService.SaveAndPublish(content, "en-US"); // New Draft
 
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 var sut = new DocumentVersionRepository((IScopeAccessor)ScopeProvider);
                 var page1 = sut.GetPagedItemsByContentId(content.Id, 0, 2, out var page1Total, 1);

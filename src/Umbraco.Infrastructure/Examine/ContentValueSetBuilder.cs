@@ -18,7 +18,7 @@ namespace Umbraco.Cms.Infrastructure.Examine
     {
         private readonly UrlSegmentProviderCollection _urlSegmentProviders;
         private readonly IUserService _userService;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
 
         private readonly IShortStringHelper _shortStringHelper;
 
@@ -26,7 +26,7 @@ namespace Umbraco.Cms.Infrastructure.Examine
             UrlSegmentProviderCollection urlSegmentProviders,
             IUserService userService,
             IShortStringHelper shortStringHelper,
-            IScopeProvider scopeProvider,
+            ICoreScopeProvider scopeProvider,
             bool publishedValuesOnly)
             : base(propertyEditors, publishedValuesOnly)
         {
@@ -44,7 +44,7 @@ namespace Umbraco.Cms.Infrastructure.Examine
 
             // We can lookup all of the creator/writer names at once which can save some
             // processing below instead of one by one.
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 creatorIds = _userService.GetProfilesById(content.Select(x => x.CreatorId).ToArray())
                     .ToDictionary(x => x.Id, x => x);

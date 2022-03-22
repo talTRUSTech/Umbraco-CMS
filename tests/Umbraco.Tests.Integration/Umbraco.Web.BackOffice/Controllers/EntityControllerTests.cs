@@ -22,7 +22,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
     [TestFixture]
     public class EntityControllerTests : UmbracoTestServerTestBase
     {
-        private IScopeProvider ScopeProvider => GetRequiredService<IScopeProvider>();
+        private ICoreScopeProvider ScopeProvider => GetRequiredService<ICoreScopeProvider>();
 
         [Test]
         public async Task GetUrlsByIds_MediaWithIntegerIds_ReturnsValidMap()
@@ -32,7 +32,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
 
             var mediaItems = new List<Media>();
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IMediaType mediaType = mediaTypeService.Get("image");
                 mediaTypeService.Save(mediaType);
@@ -115,7 +115,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
 
             var mediaItems = new List<Media>();
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IMediaType mediaType = mediaTypeService.Get("image");
                 mediaTypeService.Save(mediaType);
@@ -168,7 +168,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
 
             var mediaItems = new List<Media>();
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IMediaType mediaType = mediaTypeService.Get("image");
                 mediaTypeService.Save(mediaType);
@@ -251,7 +251,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
 
             var contentItems = new List<IContent>();
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IContentType contentType = ContentTypeBuilder.CreateBasicContentType();
                 contentTypeService.Save(contentType);
@@ -310,7 +310,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
 
             var contentItems = new List<IContent>();
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IContentType contentType = ContentTypeBuilder.CreateBasicContentType();
                 contentTypeService.Save(contentType);
@@ -369,7 +369,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
 
             var contentItems = new List<IContent>();
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IContentType contentType = ContentTypeBuilder.CreateBasicContentType();
                 contentTypeService.Save(contentType);
@@ -428,7 +428,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Web.BackOffice.Controllers
 
             var contentItems = new List<IContent>();
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 IContentType contentType = ContentTypeBuilder.CreateBasicContentType();
                 contentTypeService.Save(contentType);

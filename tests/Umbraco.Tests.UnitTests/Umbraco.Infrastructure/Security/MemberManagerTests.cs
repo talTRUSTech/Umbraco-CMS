@@ -36,7 +36,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Security
 
         public MemberManager CreateSut()
         {
-            IScopeProvider scopeProvider = new Mock<IScopeProvider>().Object;
+            ICoreScopeProvider scopeProvider = new Mock<ICoreScopeProvider>().Object;
             _mockMemberService = new Mock<IMemberService>();
 
             var mapDefinitions = new List<IMapDefinition>()

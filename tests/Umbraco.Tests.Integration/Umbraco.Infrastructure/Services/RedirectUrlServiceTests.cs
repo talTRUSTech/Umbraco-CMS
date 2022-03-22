@@ -36,7 +36,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
         {
             base.CreateTestData();
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var repository = new RedirectUrlRepository((IScopeAccessor)ScopeProvider, AppCaches.Disabled, Mock.Of<ILogger<RedirectUrlRepository>>());
                 IContent rootContent = ContentService.GetRootContent().First();

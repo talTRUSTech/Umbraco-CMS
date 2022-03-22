@@ -78,7 +78,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Core.Components
             mock.Setup(x => x.GetService(typeof(ILoggerFactory))).Returns(loggerFactory);
             mock.Setup(x => x.GetService(typeof(IProfilingLogger))).Returns(new ProfilingLogger(loggerFactory.CreateLogger<ProfilingLogger>(), Mock.Of<IProfiler>()));
             mock.Setup(x => x.GetService(typeof(IUmbracoDatabaseFactory))).Returns(f);
-            mock.Setup(x => x.GetService(typeof(IScopeProvider))).Returns(scopeProvider);
+            mock.Setup(x => x.GetService(typeof(ICoreScopeProvider))).Returns(scopeProvider);
 
             setup?.Invoke(mock);
             return mock.Object;

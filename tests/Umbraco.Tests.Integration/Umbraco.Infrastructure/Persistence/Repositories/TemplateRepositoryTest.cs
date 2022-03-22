@@ -41,16 +41,16 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         private FileSystems FileSystems => GetRequiredService<FileSystems>();
         private IViewHelper ViewHelper => GetRequiredService<IViewHelper>();
 
-        private ITemplateRepository CreateRepository(IScopeProvider provider) =>
+        private ITemplateRepository CreateRepository(ICoreScopeProvider provider) =>
             new TemplateRepository((IScopeAccessor)provider, AppCaches.Disabled, LoggerFactory.CreateLogger<TemplateRepository>(), FileSystems, IOHelper, ShortStringHelper, ViewHelper);
         
         [Test]
         public void Can_Instantiate_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -63,9 +63,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_View()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -83,9 +83,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_View_With_Default_Content()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -107,9 +107,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_View_With_Default_Content_With_Parent()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -135,9 +135,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_Unique_Alias()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -163,9 +163,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update_Unique_Alias()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -196,9 +196,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update_View()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -224,9 +224,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_View()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -251,12 +251,12 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_When_Assigned_To_Doc()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
             var scopeAccessor = (IScopeAccessor)provider;
             IDataTypeService dataTypeService = GetRequiredService<IDataTypeService>();
             IFileService fileService = GetRequiredService<IFileService>();
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository templateRepository = CreateRepository(provider);
                 var globalSettings = new GlobalSettings();
@@ -297,9 +297,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_On_Nested_Templates()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -336,9 +336,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Get_All()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -365,9 +365,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Get_Children()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -386,9 +386,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Get_Children_At_Root()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -407,9 +407,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Get_Descendants()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
                 ITemplate[] created = CreateHierarchy(repository).ToArray();
@@ -427,9 +427,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Path_Is_Set_Correctly_On_Creation()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -489,9 +489,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Path_Is_Set_Correctly_On_Update()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 
@@ -529,9 +529,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Path_Is_Set_Correctly_On_Update_With_Master_Template_Removal()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 ITemplateRepository repository = CreateRepository(provider);
 

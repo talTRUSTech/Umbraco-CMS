@@ -51,7 +51,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         private IJsonSerializer JsonSerializer => GetRequiredService<IJsonSerializer>();
 
-        private MemberRepository CreateRepository(IScopeProvider provider)
+        private MemberRepository CreateRepository(ICoreScopeProvider provider)
         {
             var accessor = (IScopeAccessor)provider;
             ITagRepository tagRepo = GetRequiredService<ITagRepository>();
@@ -81,8 +81,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetMember()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -98,8 +98,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetMembers()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -119,8 +119,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void GetAllMembers()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -143,8 +143,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void QueryMember()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -164,8 +164,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void SaveMember()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -187,8 +187,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void MemberHasBuiltinProperties()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -217,8 +217,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void SavingPreservesPassword()
         {
             IMember sut;
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -244,8 +244,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void SavingUpdatesNameAndEmail()
         {
             IMember sut;
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -270,9 +270,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void QueryMember_WithSubQuery()
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (provider.CreateScope())
+            using (provider.CreateCoreScope())
             {
                 IQuery<IMember> query = provider.CreateQuery<IMember>().Where(x =>
                     ((Member)x).LongStringPropertyValue.Contains("1095") &&
@@ -293,8 +293,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         private IMember CreateTestMember(IMemberType memberType = null, string name = null, string email = null, string password = null, string username = null, Guid? key = null)
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -314,8 +314,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         private IMemberType CreateTestMemberType(string alias = null)
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 MemberRepository repository = CreateRepository(provider);
 
@@ -328,7 +328,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         private Sql<ISqlContext> GetBaseQuery(bool isCount)
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
             if (isCount)
             {
                 Sql<ISqlContext> sqlCount = ScopeAccessor.AmbientScope.SqlContext.Sql()
@@ -384,7 +384,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         private Sql<ISqlContext> GetSubquery()
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
             Sql<ISqlContext> sql = ScopeAccessor.AmbientScope.SqlContext.Sql();
             sql.Select("umbracoNode.id")
                 .From<NodeDto>()

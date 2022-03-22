@@ -85,11 +85,11 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         {
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
 
-            var outerScope = scopeProvider.CreateScope();
+            var outerScope = scopeProvider.CreateCoreScope();
             outerScope.ReadLock(Constants.Locks.Domains);
             outerScope.ReadLock(Constants.Locks.Languages);
 
-            using (var innerScope1 = (Scope)scopeProvider.CreateScope())
+            using (var innerScope1 = (Scope)scopeProvider.CreateCoreScope())
             {
                 innerScope1.ReadLock(Constants.Locks.Domains);
                 innerScope1.ReadLock(Constants.Locks.Languages);
@@ -97,7 +97,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
                 innerScope1.Complete();
             }
 
-            using (var innerScope2 = (Scope)scopeProvider.CreateScope())
+            using (var innerScope2 = (Scope)scopeProvider.CreateCoreScope())
             {
                 innerScope2.ReadLock(Constants.Locks.Domains);
                 innerScope2.ReadLock(Constants.Locks.Languages);
@@ -118,17 +118,17 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         {
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
 
-            using (var outerScope = (Scope)scopeProvider.CreateScope())
+            using (var outerScope = (Scope)scopeProvider.CreateCoreScope())
             {
                 outerScope.EagerWriteLock(Constants.Locks.Domains);
                 outerScope.EagerWriteLock(Constants.Locks.Languages);
 
-                using (var innerScope1 = (Scope)scopeProvider.CreateScope())
+                using (var innerScope1 = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerScope1.EagerWriteLock(Constants.Locks.Domains);
                     innerScope1.EagerWriteLock(Constants.Locks.Languages);
 
-                    using (var innerScope2 = (Scope)scopeProvider.CreateScope())
+                    using (var innerScope2 = (Scope)scopeProvider.CreateCoreScope())
                     {
                         innerScope2.EagerWriteLock(Constants.Locks.Domains);
                         innerScope2.EagerWriteLock(Constants.Locks.Languages);
@@ -148,11 +148,11 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         {
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
 
-            using (var outerScope = (Scope)scopeProvider.CreateScope())
+            using (var outerScope = (Scope)scopeProvider.CreateCoreScope())
             {
                 outerScope.EagerWriteLock(Constants.Locks.Languages);
 
-                using (var innerScope = (Scope)scopeProvider.CreateScope())
+                using (var innerScope = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerScope.EagerWriteLock(Constants.Locks.Languages);
                     innerScope.EagerWriteLock(Constants.Locks.ContentTree);
@@ -173,17 +173,17 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             var timeout = TimeSpan.FromMilliseconds(10000);
 
-            using (var outerScope = (Scope)scopeProvider.CreateScope())
+            using (var outerScope = (Scope)scopeProvider.CreateCoreScope())
             {
                 outerScope.EagerWriteLock(timeout, Constants.Locks.Domains);
                 outerScope.EagerWriteLock(timeout, Constants.Locks.Languages);
 
-                using (var innerScope1 = (Scope)scopeProvider.CreateScope())
+                using (var innerScope1 = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerScope1.EagerWriteLock(timeout, Constants.Locks.Domains);
                     innerScope1.EagerWriteLock(timeout, Constants.Locks.Languages);
 
-                    using (var innerScope2 = (Scope)scopeProvider.CreateScope())
+                    using (var innerScope2 = (Scope)scopeProvider.CreateCoreScope())
                     {
                         innerScope2.EagerWriteLock(timeout, Constants.Locks.Domains);
                         innerScope2.EagerWriteLock(timeout, Constants.Locks.Languages);
@@ -204,17 +204,17 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         {
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
 
-            using (var outerScope = (Scope)scopeProvider.CreateScope())
+            using (var outerScope = (Scope)scopeProvider.CreateCoreScope())
             {
                 outerScope.EagerReadLock(Constants.Locks.Domains);
                 outerScope.EagerReadLock(Constants.Locks.Languages);
 
-                using (var innerScope1 = (Scope)scopeProvider.CreateScope())
+                using (var innerScope1 = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerScope1.EagerReadLock(Constants.Locks.Domains);
                     innerScope1.EagerReadLock(Constants.Locks.Languages);
 
-                    using (var innerScope2 = (Scope)scopeProvider.CreateScope())
+                    using (var innerScope2 = (Scope)scopeProvider.CreateCoreScope())
                     {
                         innerScope2.EagerReadLock(Constants.Locks.Domains);
                         innerScope2.EagerReadLock(Constants.Locks.Languages);
@@ -238,17 +238,17 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             var timeOut = TimeSpan.FromMilliseconds(10000);
 
-            using (var outerScope = (Scope)scopeProvider.CreateScope())
+            using (var outerScope = (Scope)scopeProvider.CreateCoreScope())
             {
                 outerScope.EagerReadLock(timeOut, Constants.Locks.Domains);
                 outerScope.EagerReadLock(timeOut, Constants.Locks.Languages);
 
-                using (var innerScope1 = (Scope)scopeProvider.CreateScope())
+                using (var innerScope1 = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerScope1.EagerReadLock(timeOut, Constants.Locks.Domains);
                     innerScope1.EagerReadLock(timeOut, Constants.Locks.Languages);
 
-                    using (var innerScope2 = (Scope)scopeProvider.CreateScope())
+                    using (var innerScope2 = (Scope)scopeProvider.CreateCoreScope())
                     {
                         innerScope2.EagerReadLock(timeOut, Constants.Locks.Domains);
                         innerScope2.EagerReadLock(timeOut, Constants.Locks.Languages);
@@ -271,11 +271,11 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         {
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
 
-            using (var outerScope = scopeProvider.CreateScope())
+            using (var outerScope = scopeProvider.CreateCoreScope())
             {
                 outerScope.ReadLock(Constants.Locks.Languages);
 
-                using (var innerScope = (Scope)scopeProvider.CreateScope())
+                using (var innerScope = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerScope.EagerReadLock(Constants.Locks.Languages);
                     innerScope.EagerReadLock(Constants.Locks.ContentTree);
@@ -296,13 +296,13 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             Guid innerscopeId;
 
-            using (var outerscope = (Scope)scopeProvider.CreateScope())
+            using (var outerscope = (Scope)scopeProvider.CreateCoreScope())
             {
                 outerscope.EagerWriteLock(Constants.Locks.ContentTree);
                 outerscope.EagerWriteLock(Constants.Locks.ContentTree);
                 Assert.AreEqual(2, outerscope.GetWriteLocks()[outerscope.InstanceId][Constants.Locks.ContentTree]);
 
-                using (var innerScope = (Scope)scopeProvider.CreateScope())
+                using (var innerScope = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerscopeId = innerScope.InstanceId;
                     innerScope.EagerWriteLock(Constants.Locks.ContentTree);
@@ -327,13 +327,13 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             Guid innerscopeId;
 
-            using (var outerscope = (Scope)scopeProvider.CreateScope())
+            using (var outerscope = (Scope)scopeProvider.CreateCoreScope())
             {
                 outerscope.EagerReadLock(Constants.Locks.ContentTree);
                 outerscope.EagerReadLock(Constants.Locks.ContentTree);
                 Assert.AreEqual(2, outerscope.GetReadLocks()[outerscope.InstanceId][Constants.Locks.ContentTree]);
 
-                using (var innerScope = (Scope)scopeProvider.CreateScope())
+                using (var innerScope = (Scope)scopeProvider.CreateCoreScope())
                 {
                     innerscopeId = innerScope.InstanceId;
                     innerScope.EagerReadLock(Constants.Locks.ContentTree);
@@ -360,7 +360,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             Guid innerScope1Id, innerScope2Id;
 
-            using (var parentScope = scopeProvider.CreateScope())
+            using (var parentScope = scopeProvider.CreateCoreScope())
             {
                 var realParentScope = (Scope)parentScope;
                 parentScope.WriteLock(Constants.Locks.ContentTree);
@@ -369,7 +369,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
                 Assert.AreEqual(1, realParentScope.GetWriteLocks()[realParentScope.InstanceId][Constants.Locks.ContentTree], $"parentScope after locks acquired: {nameof(Constants.Locks.ContentTree)}");
                 Assert.AreEqual(1, realParentScope.GetWriteLocks()[realParentScope.InstanceId][Constants.Locks.ContentTypes], $"parentScope after locks acquired: {nameof(Constants.Locks.ContentTypes)}");
 
-                using (var innerScope1 = scopeProvider.CreateScope())
+                using (var innerScope1 = scopeProvider.CreateCoreScope())
                 {
                     innerScope1Id = innerScope1.InstanceId;
                     innerScope1.WriteLock(Constants.Locks.ContentTree);
@@ -382,7 +382,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
                     Assert.AreEqual(1, realParentScope.GetWriteLocks()[innerScope1.InstanceId][Constants.Locks.ContentTypes], $"innerScope1, innerScope1 instance, after locks acquired: {nameof(Constants.Locks.ContentTypes)}");
                     Assert.AreEqual(1, realParentScope.GetWriteLocks()[innerScope1.InstanceId][Constants.Locks.Languages], $"innerScope1, innerScope1 instance, after locks acquired: {nameof(Constants.Locks.Languages)}");
 
-                    using (var innerScope2 = scopeProvider.CreateScope())
+                    using (var innerScope2 = scopeProvider.CreateCoreScope())
                     {
                         innerScope2Id = innerScope2.InstanceId;
                         innerScope2.WriteLock(Constants.Locks.ContentTree);
@@ -422,7 +422,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             Guid innerScope1Id, innerScope2Id;
 
-            using (var parentScope = scopeProvider.CreateScope())
+            using (var parentScope = scopeProvider.CreateCoreScope())
             {
                 var realParentScope = (Scope)parentScope;
                 parentScope.ReadLock(Constants.Locks.ContentTree);
@@ -430,7 +430,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
                 Assert.AreEqual(1, realParentScope.GetReadLocks()[realParentScope.InstanceId][Constants.Locks.ContentTree], $"parentScope after locks acquired: {nameof(Constants.Locks.ContentTree)}");
                 Assert.AreEqual(1, realParentScope.GetReadLocks()[realParentScope.InstanceId][Constants.Locks.ContentTypes], $"parentScope after locks acquired: {nameof(Constants.Locks.ContentTypes)}");
 
-                using (var innserScope1 = scopeProvider.CreateScope())
+                using (var innserScope1 = scopeProvider.CreateCoreScope())
                 {
                     innerScope1Id = innserScope1.InstanceId;
                     innserScope1.ReadLock(Constants.Locks.ContentTree);
@@ -442,7 +442,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
                     Assert.AreEqual(1, realParentScope.GetReadLocks()[innserScope1.InstanceId][Constants.Locks.ContentTypes], $"innerScope1, innerScope1 instance, after locks acquired: {nameof(Constants.Locks.ContentTypes)}");
                     Assert.AreEqual(1, realParentScope.GetReadLocks()[innserScope1.InstanceId][Constants.Locks.Languages], $"innerScope1, innerScope1 instance, after locks acquired: {nameof(Constants.Locks.Languages)}");
 
-                    using (var innerScope2 = scopeProvider.CreateScope())
+                    using (var innerScope2 = scopeProvider.CreateCoreScope())
                     {
                         innerScope2Id = innerScope2.InstanceId;
                         innerScope2.ReadLock(Constants.Locks.ContentTree);
@@ -483,7 +483,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             syntaxProviderMock.Setup(x => x.WriteLock(It.IsAny<int>(), It.IsAny<TimeSpan?>())).Throws(new Exception("Boom"));
 
-            using (var scope = (Scope)scopeProvider.CreateScope())
+            using (var scope = (Scope)scopeProvider.CreateCoreScope())
             {
                 Assert.Throws<Exception>(() => scope.EagerWriteLock(Constants.Locks.Languages));
                 Assert.IsFalse(scope.GetWriteLocks()[scope.InstanceId].ContainsKey(Constants.Locks.Languages));
@@ -497,7 +497,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
             syntaxProviderMock.Setup(x => x.ReadLock(It.IsAny<int>(), It.IsAny<TimeSpan?>())).Throws(new Exception("Boom"));
 
-            using (var scope = (Scope)scopeProvider.CreateScope())
+            using (var scope = (Scope)scopeProvider.CreateCoreScope())
             {
                 Assert.Throws<Exception>(() => scope.EagerReadLock(Constants.Locks.Languages));
                 Assert.IsFalse(scope.GetReadLocks()[scope.InstanceId].ContainsKey(Constants.Locks.Languages));
@@ -509,7 +509,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         public void Scope_Throws_If_ReadLocks_Not_Cleared()
         {
             var scopeprovider = GetScopeProvider(out var syntaxProviderMock);
-            var scope = (Scope)scopeprovider.CreateScope();
+            var scope = (Scope)scopeprovider.CreateCoreScope();
 
             try
             {
@@ -534,7 +534,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         public void Scope_Throws_If_WriteLocks_Not_Cleared()
         {
             var scopeprovider = GetScopeProvider(out var syntaxProviderMock);
-            var scope = (Scope)scopeprovider.CreateScope();
+            var scope = (Scope)scopeprovider.CreateCoreScope();
 
             try
             {
@@ -560,7 +560,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         {
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
 
-            using (var scope = scopeProvider.CreateScope())
+            using (var scope = scopeProvider.CreateCoreScope())
             {
                 var realScope = (Scope)scope;
                 Assert.IsNull(realScope.GetWriteLocks());
@@ -572,7 +572,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Scoping
         {
             var scopeProvider = GetScopeProvider(out var syntaxProviderMock);
 
-            using (var scope = scopeProvider.CreateScope())
+            using (var scope = scopeProvider.CreateCoreScope())
             {
                 var realScope = (Scope)scope;
                 Assert.IsNull(realScope.GetReadLocks());

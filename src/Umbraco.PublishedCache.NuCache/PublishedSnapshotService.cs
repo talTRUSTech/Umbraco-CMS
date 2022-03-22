@@ -38,7 +38,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
         private readonly IPublishedSnapshotAccessor _publishedSnapshotAccessor;
         private readonly IVariationContextAccessor _variationContextAccessor;
         private readonly IProfilingLogger _profilingLogger;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
         private readonly INuCacheContentService _publishedContentService;
         private readonly ILogger<PublishedSnapshotService> _logger;
         private readonly ILoggerFactory _loggerFactory;
@@ -85,7 +85,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
             IVariationContextAccessor variationContextAccessor,
             IProfilingLogger profilingLogger,
             ILoggerFactory loggerFactory,
-            IScopeProvider scopeProvider,
+            ICoreScopeProvider scopeProvider,
             INuCacheContentService publishedContentService,
             IDefaultCultureAccessor defaultCultureAccessor,
             IOptions<GlobalSettings> globalSettings,
@@ -310,7 +310,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
             // if there already is a scope, the writer will attach to it
             // otherwise, it will only exist here - cheap
             using (_contentStore.GetScopedWriteLock(_scopeProvider))
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 scope.ReadLock(Constants.Locks.ContentTree);
                 var ok = action();
@@ -361,7 +361,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
         {
             // see note in LockAndLoadContent
             using (_mediaStore.GetScopedWriteLock(_scopeProvider))
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 scope.ReadLock(Constants.Locks.MediaTree);
                 var ok = action();
@@ -441,7 +441,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
         {
             // see note in LockAndLoadContent
             using (_domainStore.GetScopedWriteLock(_scopeProvider))
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 scope.ReadLock(Constants.Locks.Domains);
                 LoadDomainsLocked();
@@ -518,7 +518,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
 
                 if (payload.ChangeTypes.HasType(TreeChangeTypes.RefreshAll))
                 {
-                    using (var scope = _scopeProvider.CreateScope())
+                    using (var scope = _scopeProvider.CreateCoreScope())
                     {
                         scope.ReadLock(Constants.Locks.ContentTree);
                         LoadContentFromDatabaseLocked(false);
@@ -544,7 +544,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
                 // TODO: should we do some RV check here? (later)
 
                 var capture = payload;
-                using (var scope = _scopeProvider.CreateScope())
+                using (var scope = _scopeProvider.CreateCoreScope())
                 {
                     scope.ReadLock(Constants.Locks.ContentTree);
 
@@ -607,7 +607,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
 
                 if (payload.ChangeTypes.HasType(TreeChangeTypes.RefreshAll))
                 {
-                    using (var scope = _scopeProvider.CreateScope())
+                    using (var scope = _scopeProvider.CreateCoreScope())
                     {
                         scope.ReadLock(Constants.Locks.MediaTree);
                         LoadMediaFromDatabaseLocked(false);
@@ -636,7 +636,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
 
                 // TODO: should we do some RV checks here? (later)
                 var capture = payload;
-                using (var scope = _scopeProvider.CreateScope())
+                using (var scope = _scopeProvider.CreateCoreScope())
                 {
                     scope.ReadLock(Constants.Locks.MediaTree);
 
@@ -788,14 +788,14 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
                 // some locking on datatypes
                 _publishedContentTypeFactory.NotifyDataTypeChanges(idsA);
 
-                using (var scope = _scopeProvider.CreateScope())
+                using (var scope = _scopeProvider.CreateCoreScope())
                 {
                     scope.ReadLock(Constants.Locks.ContentTree);
                     _contentStore.UpdateDataTypesLocked(idsA, id => CreateContentType(PublishedItemType.Content, id));
                     scope.Complete();
                 }
 
-                using (var scope = _scopeProvider.CreateScope())
+                using (var scope = _scopeProvider.CreateCoreScope())
                 {
                     scope.ReadLock(Constants.Locks.MediaTree);
                     _mediaStore.UpdateDataTypesLocked(idsA, id => CreateContentType(PublishedItemType.Media, id));
@@ -818,7 +818,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
                     switch (payload.ChangeType)
                     {
                         case DomainChangeTypes.RefreshAll:
-                            using (var scope = _scopeProvider.CreateScope())
+                            using (var scope = _scopeProvider.CreateCoreScope())
                             {
                                 scope.ReadLock(Constants.Locks.Domains);
                                 LoadDomainsLocked();
@@ -909,7 +909,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
             // content (and content types) are read-locked while reading content
             // contentStore is wlocked (so readable, only no new views)
             // and it can be wlocked by 1 thread only at a time
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 scope.ReadLock(Constants.Locks.ContentTypes);
 
@@ -947,7 +947,7 @@ namespace Umbraco.Cms.Infrastructure.PublishedCache
             // media (and content types) are read-locked while reading media
             // mediaStore is wlocked (so readable, only no new views)
             // and it can be wlocked by 1 thread only at a time
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 scope.ReadLock(Constants.Locks.MediaTypes);
 

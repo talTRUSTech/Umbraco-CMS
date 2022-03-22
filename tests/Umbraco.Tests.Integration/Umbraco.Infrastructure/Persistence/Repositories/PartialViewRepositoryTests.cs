@@ -48,8 +48,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 GetRequiredService<IOptions<GlobalSettings>>(), HostingEnvironment,
                 null, _fileSystem, null, null, null);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 var repository = new PartialViewRepository(fileSystems);
 

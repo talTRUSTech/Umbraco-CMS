@@ -64,8 +64,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Instantiate_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 // Act
                 IScriptRepository repository = CreateRepository();
@@ -79,8 +79,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_On_ScriptRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -97,8 +97,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update_On_ScriptRepository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = ScopeProvider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -121,7 +121,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_On_ScriptRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -138,7 +138,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Get_On_ScriptRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -156,7 +156,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_On_ScriptRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -182,7 +182,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_With_Params_On_ScriptRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -208,7 +208,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Exists_On_ScriptRepository()
         {
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -226,7 +226,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             const string content = "/// <reference name=\"MicrosoftAjax.js\"/>";
 
             // Arrange
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 
@@ -255,7 +255,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void PathTests()
         {
             // unless noted otherwise, no changes / 7.2.8
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IScriptRepository repository = CreateRepository();
 

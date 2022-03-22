@@ -15,7 +15,7 @@ namespace Umbraco.Cms.Infrastructure.Examine
     public class ContentValueSetValidator : ValueSetValidator, IContentValueSetValidator
     {
         private readonly IPublicAccessService _publicAccessService;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
         private const string PathKey = "path";
         private static readonly IEnumerable<string> ValidCategories = new[] { IndexTypes.Content, IndexTypes.Media };
         protected override IEnumerable<string> ValidIndexCategories => ValidCategories;
@@ -62,7 +62,7 @@ namespace Umbraco.Cms.Infrastructure.Examine
                 }
 
                 // explicit scope since we may be in a background thread
-                using (_scopeProvider.CreateScope(autoComplete: true))
+                using (_scopeProvider.CreateCoreScope(autoComplete: true))
                 {
                     if (_publicAccessService.IsProtected(path))
                     {
@@ -83,7 +83,7 @@ namespace Umbraco.Cms.Infrastructure.Examine
 
         public ContentValueSetValidator(bool publishedValuesOnly, bool supportProtectedContent,
             IPublicAccessService publicAccessService,
-            IScopeProvider scopeProvider,
+            ICoreScopeProvider scopeProvider,
             int? parentId = null,
             IEnumerable<string> includeItemTypes = null, IEnumerable<string> excludeItemTypes = null)
             : base(includeItemTypes, excludeItemTypes, null, null)

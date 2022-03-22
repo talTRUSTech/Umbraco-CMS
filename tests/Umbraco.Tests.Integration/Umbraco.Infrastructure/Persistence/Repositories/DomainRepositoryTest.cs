@@ -29,7 +29,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         private IContentTypeRepository ContentTypeRepository => GetRequiredService<IContentTypeRepository>();
 
-        private DomainRepository CreateRepository(IScopeProvider provider)
+        private DomainRepository CreateRepository(ICoreScopeProvider provider)
         {
             var accessor = (IScopeAccessor)provider;
             var domainRepository = new DomainRepository(accessor, AppCaches.NoCache, LoggerFactory.CreateLogger<DomainRepository>());
@@ -38,8 +38,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         private int CreateTestData(string isoName, out ContentType ct)
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 var globalSettings = new GlobalSettings();
                 var lang = new Language(globalSettings, isoName);
@@ -59,8 +59,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -88,8 +88,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -115,8 +115,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -137,8 +137,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -162,8 +162,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId1 = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -203,8 +203,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -228,8 +228,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -253,8 +253,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -278,8 +278,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -305,8 +305,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -334,8 +334,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 
@@ -378,8 +378,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         {
             int contentId = CreateTestData("en-AU", out ContentType ct);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DomainRepository repo = CreateRepository(provider);
 

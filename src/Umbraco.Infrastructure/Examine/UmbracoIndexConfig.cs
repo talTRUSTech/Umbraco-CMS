@@ -7,14 +7,14 @@ namespace Umbraco.Cms.Infrastructure.Examine
     public class UmbracoIndexConfig : IUmbracoIndexConfig
     {
 
-        public UmbracoIndexConfig(IPublicAccessService publicAccessService, IScopeProvider scopeProvider)
+        public UmbracoIndexConfig(IPublicAccessService publicAccessService, ICoreScopeProvider scopeProvider)
         {
             ScopeProvider = scopeProvider;
             PublicAccessService = publicAccessService;
         }
 
         protected IPublicAccessService PublicAccessService { get; }
-        protected IScopeProvider ScopeProvider { get; }
+        protected ICoreScopeProvider ScopeProvider { get; }
         public IContentValueSetValidator GetContentValueSetValidator()
         {
             return new ContentValueSetValidator(false, true, PublicAccessService, ScopeProvider);

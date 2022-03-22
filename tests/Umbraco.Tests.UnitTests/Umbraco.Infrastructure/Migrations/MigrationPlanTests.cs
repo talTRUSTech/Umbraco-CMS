@@ -36,7 +36,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
             NullLoggerFactory loggerFactory = NullLoggerFactory.Instance;
 
             var database = new TestDatabase();
-            IDatabaseScope scope = Mock.Of<IDatabaseScope>(x => x.Notifications == Mock.Of<IScopedNotificationPublisher>());
+            IScope scope = Mock.Of<IScope>(x => x.Notifications == Mock.Of<IScopedNotificationPublisher>());
             Mock.Get(scope)
                 .Setup(x => x.Database)
                 .Returns(database);
@@ -72,7 +72,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Infrastructure.Migrations
                 .Returns<string>(k => k == "Umbraco.Tests.MigrationPlan" ? string.Empty : null);
 
             string state;
-            using (IScope s = scopeProvider.CreateScope())
+            using (ICoreScope s = scopeProvider.CreateCoreScope())
             {
                 // read current state
                 var sourceState = kvs.GetValue("Umbraco.Tests.MigrationPlan") ?? string.Empty;

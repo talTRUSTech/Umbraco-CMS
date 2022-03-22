@@ -11,8 +11,8 @@ using NUnit.Framework;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Core.Services;
-using Umbraco.Cms.Core.Services.Implement;
 using Umbraco.Cms.Infrastructure.Persistence;
+using Umbraco.Cms.Infrastructure.Scoping;
 using Umbraco.Cms.Tests.Common.Builders;
 using Umbraco.Cms.Tests.Common.Testing;
 using Umbraco.Cms.Tests.Integration.Testing;
@@ -53,7 +53,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
 
         private void Save(ContentService service, IContent content)
         {
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 if (ScopeAccessor.AmbientScope.Database.DatabaseType.IsSqlServer())
                 {
@@ -67,7 +67,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
 
         private void Save(MediaService service, IMedia media)
         {
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 if (ScopeAccessor.AmbientScope.Database.DatabaseType.IsSqlServer())
                 {
@@ -130,7 +130,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
                 {
                     try
                     {
-                        ConcurrentStack<IScope>
+                        ConcurrentStack<ICoreScope>
                             currentStack = ((ScopeProvider)ScopeProvider).GetCallContextScopeValue();
                         log.LogInformation("[{ThreadId}] Current Stack? {CurrentStack}",
                             Thread.CurrentThread.ManagedThreadId, currentStack?.Count);
@@ -230,7 +230,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
                 {
                     try
                     {
-                        ConcurrentStack<IScope>
+                        ConcurrentStack<ICoreScope>
                             currentStack = ((ScopeProvider)ScopeProvider).GetCallContextScopeValue();
                         log.LogInformation("[{ThreadId}] Current Stack? {CurrentStack}",
                             Thread.CurrentThread.ManagedThreadId, currentStack?.Count);

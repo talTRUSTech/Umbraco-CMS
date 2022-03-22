@@ -1,7 +1,9 @@
 ﻿// Copyright (c) Umbraco.
 // See LICENSE for more details.
 
-namespace Umbraco.Cms.Core.Scoping
+using Umbraco.Cms.Core.Scoping;
+
+namespace Umbraco.Cms.Infrastructure.Scoping
 {
 
     /// <summary>

@@ -35,8 +35,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Cannot_Add_Duplicate_Macros()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -50,8 +50,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Cannot_Update_To_Duplicate_Macro_Alias()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -66,8 +66,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Instantiate_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -80,8 +80,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Get_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -106,8 +106,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -123,8 +123,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetByQuery_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -141,8 +141,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Count_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -159,8 +159,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -180,8 +180,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -215,8 +215,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -236,8 +236,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Exists_On_Repository()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -255,8 +255,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Add_Property_For_Macro()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -280,8 +280,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Add_New_Macro_With_Property()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -303,8 +303,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Remove_Macro_Property()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -326,8 +326,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Add_Remove_Macro_Properties()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -356,8 +356,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Update_Property_For_Macro()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -381,8 +381,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Update_Macro_Property_Alias()
         {
             // Arrange
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 
@@ -403,8 +403,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
 
         public void CreateTestData()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 var repository = new MacroRepository((IScopeAccessor)provider, AppCaches.Disabled, _logger, ShortStringHelper);
 

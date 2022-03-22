@@ -35,7 +35,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Examine.Lucene.UmbracoExamine
         private readonly IShortStringHelper _shortStringHelper;
         private readonly PropertyEditorCollection _propertyEditors;
         private readonly MediaUrlGeneratorCollection _mediaUrlGenerators;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
         private readonly ILoggerFactory _loggerFactory;
         private readonly IOptions<ContentSettings> _contentSettings;
 
@@ -43,7 +43,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Examine.Lucene.UmbracoExamine
             IShortStringHelper shortStringHelper,
             PropertyEditorCollection propertyEditors,
             MediaUrlGeneratorCollection mediaUrlGenerators,
-            IScopeProvider scopeProvider,
+            ICoreScopeProvider scopeProvider,
             ILoggerFactory loggerFactory,
             IOptions<ContentSettings> contentSettings)
         {

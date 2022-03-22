@@ -26,10 +26,10 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
                 Assert.Ignore("SqliteDistributedLockingMechanism doesn't query the umbracoLock table for read locks.");
             }
 
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
             Assert.Throws<ArgumentException>(() =>
             {
-                using (IScope scope = provider.CreateScope())
+                using (ICoreScope scope = provider.CreateCoreScope())
                 {
                     scope.EagerReadLock(-666);
                     scope.Complete();
@@ -40,8 +40,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
         [Test]
         public void ReadLockExisting()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 scope.EagerReadLock(Constants.Locks.Servers);
                 scope.Complete();
@@ -51,10 +51,10 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
         [Test]
         public void WriteLockNonExisting()
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
             Assert.Throws<ArgumentException>(() =>
             {
-                using (IScope scope = provider.CreateScope())
+                using (ICoreScope scope = provider.CreateCoreScope())
                 {
                     scope.EagerWriteLock(-666);
                     scope.Complete();
@@ -65,8 +65,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence
         [Test]
         public void WriteLockExisting()
         {
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 scope.EagerWriteLock(Constants.Locks.Servers);
                 scope.Complete();

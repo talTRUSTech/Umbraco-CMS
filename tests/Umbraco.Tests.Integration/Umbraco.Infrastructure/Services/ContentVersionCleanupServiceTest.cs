@@ -74,7 +74,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
 
         private Report GetReport()
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 // SQL CE is fun!
                 var contentVersions = ScopeAccessor.AmbientScope.Database.Single<int>(@"select count(1) from umbracoContentVersion");
@@ -92,7 +92,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
 
         private void InsertCleanupPolicy(IContentType contentType, int daysToKeepAll, int daysToRollupAll, bool preventCleanup = false)
         {
-            using (IScope scope = ScopeProvider.CreateScope(autoComplete: true))
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 var entity = new ContentVersionCleanupPolicyDto
                 {

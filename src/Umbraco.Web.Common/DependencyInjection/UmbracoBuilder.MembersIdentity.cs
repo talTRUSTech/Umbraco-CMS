@@ -48,7 +48,7 @@ namespace Umbraco.Extensions
                 .AddUserStore<IUserStore<MemberIdentityUser>, MemberUserStore>(factory => new MemberUserStore(
                     factory.GetRequiredService<IMemberService>(),
                     factory.GetRequiredService<IUmbracoMapper>(),
-                    factory.GetRequiredService<IScopeProvider>(),
+                    factory.GetRequiredService<ICoreScopeProvider>(),
                     factory.GetRequiredService<IdentityErrorDescriber>(),
                     factory.GetRequiredService<IPublishedSnapshotAccessor>(),
                     factory.GetRequiredService<IExternalLoginWithKeyService>(),

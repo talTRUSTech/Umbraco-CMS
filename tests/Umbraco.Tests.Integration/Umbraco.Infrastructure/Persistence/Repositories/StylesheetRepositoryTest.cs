@@ -63,7 +63,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Instantiate_Repository()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 // Act
                 IStylesheetRepository repository = CreateRepository();
@@ -77,7 +77,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Add()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -94,7 +94,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -119,7 +119,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Update_With_Property()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -144,7 +144,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Throws_When_Adding_Duplicate_Properties()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -162,7 +162,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Delete()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -181,7 +181,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Get()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -200,7 +200,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -222,7 +222,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_GetAll_With_Params()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -244,7 +244,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void Can_Perform_Exists()
         {
             // Arrange
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 
@@ -260,7 +260,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void PathTests()
         {
             // unless noted otherwise, no changes / 7.2.8
-            using (ScopeProvider.CreateScope())
+            using (ScopeProvider.CreateCoreScope())
             {
                 IStylesheetRepository repository = CreateRepository();
 

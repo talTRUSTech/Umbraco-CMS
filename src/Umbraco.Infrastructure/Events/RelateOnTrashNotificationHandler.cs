@@ -22,14 +22,14 @@ namespace Umbraco.Cms.Core.Events
         private readonly IEntityService _entityService;
         private readonly ILocalizedTextService _textService;
         private readonly IAuditService _auditService;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
 
         public RelateOnTrashNotificationHandler(
             IRelationService relationService,
             IEntityService entityService,
             ILocalizedTextService textService,
             IAuditService auditService,
-            IScopeProvider scopeProvider)
+            ICoreScopeProvider scopeProvider)
         {
             _relationService = relationService;
             _entityService = entityService;
@@ -54,7 +54,7 @@ namespace Umbraco.Cms.Core.Events
 
         public void Handle(ContentMovedToRecycleBinNotification notification)
         {
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 const string relationTypeAlias = Constants.Conventions.RelationTypes.RelateParentDocumentOnDeleteAlias;
                 var relationType = _relationService.GetRelationTypeByAlias(relationTypeAlias);
@@ -114,7 +114,7 @@ namespace Umbraco.Cms.Core.Events
 
         public void Handle(MediaMovedToRecycleBinNotification notification)
         {
-            using (var scope = _scopeProvider.CreateScope())
+            using (var scope = _scopeProvider.CreateCoreScope())
             {
                 const string relationTypeAlias = Constants.Conventions.RelationTypes.RelateParentMediaFolderOnDeleteAlias;
                 var relationType = _relationService.GetRelationTypeByAlias(relationTypeAlias);

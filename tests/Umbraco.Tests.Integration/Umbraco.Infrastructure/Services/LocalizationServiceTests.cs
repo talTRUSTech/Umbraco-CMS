@@ -111,7 +111,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
         [Test]
         public void Can_Get_Dictionary_Item_Descendants()
         {
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 ILanguage en = LocalizationService.GetLanguageById(_englishLangId);
                 ILanguage dk = LocalizationService.GetLanguageById(_danishLangId);

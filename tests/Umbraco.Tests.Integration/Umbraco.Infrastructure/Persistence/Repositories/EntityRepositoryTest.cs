@@ -60,8 +60,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             var createdMembers = MemberBuilder.CreateMultipleSimpleMembers(memberType, 10).ToList();
             memberService.Save(createdMembers);
 
-            IScopeProvider provider = ScopeProvider;
-            using (provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (provider.CreateCoreScope())
             {
                 EntityRepository repo = CreateRepository((IScopeAccessor)provider);
 

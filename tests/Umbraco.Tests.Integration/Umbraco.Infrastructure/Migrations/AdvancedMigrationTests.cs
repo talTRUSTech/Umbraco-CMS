@@ -48,7 +48,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Migrations
                     return new CreateTableOfTDtoMigration(c);
                 });
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 var upgrader = new Upgrader(
                     new MigrationPlan("test")
@@ -83,7 +83,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Migrations
                     }
                 });
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var upgrader = new Upgrader(
                     new MigrationPlan("test")
@@ -124,7 +124,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Migrations
                     }
                 });
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var upgrader = new Upgrader(
                     new MigrationPlan("test")
@@ -166,7 +166,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Migrations
                     }
                 });
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 var upgrader = new Upgrader(
                     new MigrationPlan("test")
@@ -199,7 +199,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Migrations
                     }
                 });
 
-            using (ScopeProvider.CreateScope(autoComplete: true))
+            using (ScopeProvider.CreateCoreScope(autoComplete: true))
             {
                 var upgrader = new Upgrader(
                     new MigrationPlan("test")

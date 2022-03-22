@@ -331,7 +331,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
         {
             MemberService.AddRole("MyTestRole1");
             int roleId;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 roleId = ScopeAccessor.AmbientScope.Database.ExecuteScalar<int>("SELECT id from umbracoNode where [text] = 'MyTestRole1'");
                 scope.Complete();
@@ -344,7 +344,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             Member member2 = MemberBuilder.CreateSimpleMember(memberType, "test2", "test2@test.com", "pass", "test2");
             MemberService.Save(member2);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 ScopeAccessor.AmbientScope.Database.Insert(new Member2MemberGroupDto { MemberGroup = roleId, Member = member1.Id });
                 ScopeAccessor.AmbientScope.Database.Insert(new Member2MemberGroupDto { MemberGroup = roleId, Member = member2.Id });
@@ -1279,7 +1279,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
                 .Where<PropertyTypeDto>(dto => dto.Alias == Constants.Conventions.Member.LastLoginDate);
 
             List<PropertyDataDto> colResult;
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 colResult = ScopeAccessor.AmbientScope.Database.Fetch<PropertyDataDto>(sql);
                 scope.Complete();

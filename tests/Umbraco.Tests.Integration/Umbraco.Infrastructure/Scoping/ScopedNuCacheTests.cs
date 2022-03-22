@@ -69,7 +69,7 @@ namespace Umbraco.Tests.Scoping
             ContentTypeService.Save(contentType);
             var item = new Content("name", -1, contentType);
 
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 ContentService.SaveAndPublish(item);
                 scope.Complete();
@@ -93,7 +93,7 @@ namespace Umbraco.Tests.Scoping
             Assert.IsNotNull(x);
             Assert.AreEqual("name", x.Name(VariationContextAccessor));
 
-            using (var scope = ScopeProvider.CreateScope())
+            using (var scope = ScopeProvider.CreateCoreScope())
             {
                 item.Name = "changed";
                 ContentService.SaveAndPublish(item);

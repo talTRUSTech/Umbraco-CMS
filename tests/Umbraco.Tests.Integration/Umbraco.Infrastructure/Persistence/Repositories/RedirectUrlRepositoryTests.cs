@@ -28,9 +28,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void CanSaveAndGet()
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 var rurl = new RedirectUrl
@@ -44,7 +44,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 Assert.AreNotEqual(0, rurl.Id);
             }
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 IRedirectUrl rurl = repo.GetMostRecentUrl("blah");
@@ -59,7 +59,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         public void CanSaveAndGetWithCulture()
         {
             string culture = "en";
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(ScopeProvider);
                 var rurl = new RedirectUrl
@@ -74,7 +74,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 Assert.AreNotEqual(0, rurl.Id);
             }
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(ScopeProvider);
                 IRedirectUrl rurl = repo.GetMostRecentUrl("blah");
@@ -89,11 +89,11 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void CanSaveAndGetMostRecent()
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
             Assert.AreNotEqual(_textpage.Id, _otherpage.Id);
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 var rurl = new RedirectUrl
@@ -122,7 +122,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 Assert.AreNotEqual(0, rurl.Id);
             }
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 IRedirectUrl rurl = repo.GetMostRecentUrl("blah");
@@ -140,7 +140,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             string cultureB = "de";
             Assert.AreNotEqual(_textpage.Id, _otherpage.Id);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(ScopeProvider);
                 var rurl = new RedirectUrl
@@ -171,7 +171,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 Assert.AreNotEqual(0, rurl.Id);
             }
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(ScopeProvider);
                 IRedirectUrl rurl = repo.GetMostRecentUrl("blah", cultureA);
@@ -186,9 +186,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void CanSaveAndGetByContent()
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 var rurl = new RedirectUrl
@@ -214,7 +214,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 Assert.AreNotEqual(0, rurl.Id);
             }
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 IRedirectUrl[] rurls = repo.GetContentUrls(_textpage.Key).ToArray();
@@ -229,9 +229,9 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
         [Test]
         public void CanSaveAndDelete()
         {
-            IScopeProvider provider = ScopeProvider;
+            ICoreScopeProvider provider = ScopeProvider;
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 var rurl = new RedirectUrl
@@ -255,7 +255,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
                 Assert.AreNotEqual(0, rurl.Id);
             }
 
-            using (IScope scope = provider.CreateScope())
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 IRedirectUrlRepository repo = CreateRepository(provider);
                 repo.DeleteContentUrls(_textpage.Key);
@@ -267,7 +267,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Persistence.Repos
             }
         }
 
-        private IRedirectUrlRepository CreateRepository(IScopeProvider provider) =>
+        private IRedirectUrlRepository CreateRepository(ICoreScopeProvider provider) =>
             new RedirectUrlRepository((IScopeAccessor)provider, AppCaches, LoggerFactory.CreateLogger<RedirectUrlRepository>());
 
         private IContent _textpage;

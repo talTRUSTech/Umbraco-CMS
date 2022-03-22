@@ -20,7 +20,7 @@ namespace Umbraco.Cms.Tests.UnitTests.Umbraco.Core.Cache
             get
             {
                 var accessor = new Mock<IScopeAccessor>();
-                var scope = new Mock<IDatabaseScope>();
+                var scope = new Mock<IScope>();
                 scope.Setup(x => x.RepositoryCacheMode).Returns(RepositoryCacheMode.Default);
                 accessor.Setup(x => x.AmbientScope).Returns(scope.Object);
                 return accessor.Object;

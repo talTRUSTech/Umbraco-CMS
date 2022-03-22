@@ -159,8 +159,8 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             IEnumerable<Content> pages = ContentBuilder.CreateTextpageContent(contentType, -1, 100);
             ContentService.Save(pages, 0);
 
-            IScopeProvider provider = ScopeProvider;
-            using (IScope scope = provider.CreateScope())
+            ICoreScopeProvider provider = ScopeProvider;
+            using (ICoreScope scope = provider.CreateCoreScope())
             {
                 DocumentRepository repository = DocumentRepository;
 
@@ -186,7 +186,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             IEnumerable<Content> pages = ContentBuilder.CreateTextpageContent(contentType, -1, 1000);
             ContentService.Save(pages, 0);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 DocumentRepository repository = DocumentRepository;
 
@@ -212,7 +212,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             IEnumerable<Content> pages = ContentBuilder.CreateTextpageContent(contentType, -1, 100);
             ContentService.Save(pages, 0);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 DocumentRepository repository = DocumentRepository;
 
@@ -241,7 +241,7 @@ namespace Umbraco.Cms.Tests.Integration.Umbraco.Infrastructure.Services
             IEnumerable<Content> pages = ContentBuilder.CreateTextpageContent(contentType, -1, 1000);
             ContentService.Save(pages, 0);
 
-            using (IScope scope = ScopeProvider.CreateScope())
+            using (ICoreScope scope = ScopeProvider.CreateCoreScope())
             {
                 DocumentRepository repository = DocumentRepository;
 

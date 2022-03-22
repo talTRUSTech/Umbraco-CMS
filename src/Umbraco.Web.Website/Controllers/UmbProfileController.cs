@@ -24,7 +24,7 @@ namespace Umbraco.Cms.Web.Website.Controllers
         private readonly IMemberManager _memberManager;
         private readonly IMemberService _memberService;
         private readonly IMemberTypeService _memberTypeService;
-        private readonly IScopeProvider _scopeProvider;
+        private readonly ICoreScopeProvider _scopeProvider;
 
         public UmbProfileController(
             IUmbracoContextAccessor umbracoContextAccessor,
@@ -36,7 +36,7 @@ namespace Umbraco.Cms.Web.Website.Controllers
             IMemberManager memberManager,
             IMemberService memberService,
             IMemberTypeService memberTypeService,
-            IScopeProvider scopeProvider)
+            ICoreScopeProvider scopeProvider)
             : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
             _memberManager = memberManager;
@@ -105,8 +105,8 @@ namespace Umbraco.Cms.Web.Website.Controllers
 
         private async Task<IdentityResult> UpdateMemberAsync(ProfileModel model, MemberIdentityUser currentMember)
         {
-            using IScope scope = _scopeProvider.CreateScope(autoComplete: true);
-                
+            using ICoreScope scope = _scopeProvider.CreateCoreScope(autoComplete: true);
+
             currentMember.Email = model.Email;
             currentMember.Name = model.Name;
             currentMember.UserName = model.UserName;
@@ -127,7 +127,7 @@ namespace Umbraco.Cms.Web.Website.Controllers
                 // should never happen
                 throw new InvalidOperationException($"Could not find a member with key: {member.Key}.");
             }
-            
+
             IMemberType memberType = _memberTypeService.Get(member.ContentTypeId);
 
             if (model.MemberProperties != null)
